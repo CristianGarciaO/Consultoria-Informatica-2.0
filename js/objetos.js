@@ -10,13 +10,82 @@ function Consultoria() {
     this.tareas = [];
 
     //Alex
-    this.administradores = [];
-    this.incidencias = [];
+    // this.administradores = [];
+    // this.incidencias = [];
     this.clientes = [];
-    this.contratos = [];
-    this.publicidades = [];
+    // this.contratos = [];
+    // this.publicidades = [];
 
 }
+
+/***** TABLAS DE LA BASE DE DATOS *****/
+
+/*
+*
+*   TABLA CLIENTE
+*
+*       Se mantiene los atributos
+*       Formularios para:
+*           Alta
+*           Listar
+*           Actualizar o Modificar
+*
+*   TABLA TRABAJADOR
+*
+*       Se añade un atributo:
+*
+*           TIPO Trabajador
+*
+*        Formularios para:
+*           Alta
+*           Baja
+*           Listar
+*           Actualizar o Modificar
+*
+*   TABLA PROYECTO
+*
+*       Se fusiona con la clase contrato. Quedan los siquientes atributos:
+*
+*           ID Proyecto
+*           ID Cliente (DNI)
+*           Precio
+*           Fecha Fin
+*           Fecha Inicio
+*           Nombre Proyecto
+*
+*       Formularios para:
+*           Alta
+*           Baja
+*           Listar
+*           Actualizar o Modificar
+*
+*   TABLA TAREA
+*
+*           Se modifican atributos y se amplia:
+*
+*           ID Tarea
+*           ID Proyecto
+*           ID TipoTarea
+*           ID Trabajador
+*           Fecha Inicio
+*           Fecha Fin
+*           Estado
+*
+*   TABLA TIPOTAREA
+*
+*           Nueva clase:
+*
+*           ID TipoTarea
+*           Nombre TipoTarea
+*           Descripcion
+*
+*
+* */
+
+
+
+
+
 
 
 /**** METODOS PARA ORDENAR ARRAYS ****/
@@ -115,12 +184,13 @@ Consultoria.prototype.existeContrato = function (nombreProycto) {
 
 // TRABAJADOR
 
-function Trabajador(sNombreTrabajador, iDniTrabajador, sApellidosTrabajador, iTelefonoTrabajador, sDireccionTrabajador) {
+function Trabajador(sNombreTrabajador, iDniTrabajador, sApellidosTrabajador, iTelefonoTrabajador, sDireccionTrabajador, sTipoTrabajador) {
     this.nombreTrabajador = sNombreTrabajador;
     this.dniTrabajador = iDniTrabajador;
     this.apellidosTrabajador = sApellidosTrabajador;
     this.telefonoTrabajador = iTelefonoTrabajador;
     this.direccionTrabajador = sDireccionTrabajador;
+    this.tipoTrabajador = sTipoTrabajador;
 }
 
 
@@ -568,11 +638,20 @@ Consultoria.prototype.listarIncidencias = function(filtro){
 
 // PROYECTOS
 
-function Proyecto(sNombreProyecto, oAnalistasProyecto, oTareasProyecto) {
+/******************************NUEVO PROYECTO****************************************/
+
+function Proyecto(iIdProyecto, sNombreProyecto, iPrecio, fechaInicio, fechaFin, sDniCliente) {
+    this.idProyecto = iIdProyecto;
     this.nombreProyecto = sNombreProyecto;
-    this.analistasProyecto = oAnalistasProyecto;
-    this.tareasProyecto = oTareasProyecto;
+    this.precio = iPrecio;
+    this.fechaInicioProyecto = fechaInicio;
+    this.fechaFinProyecto = fechaFin;
+    this.idCliente = sDniCliente;
+
 }
+
+//A PARTIR DE ESTA CLASE NUEVA, GENERAR LOS METODOS NECESARIOS, ADAPTANDO LOS QUE TENEMOS. ***********************
+
 
 Consultoria.prototype.anadeProyecto = function (oProyecto) {
     this.proyectos.push(oProyecto);
@@ -638,16 +717,28 @@ Consultoria.prototype.listarProyectos = function(){
 
 
 
+
+
 // TAREAS
 
-function Tarea(iCodigo, sNombreTarea, dFechaIni, oProyecto, dFechaFin, bEstado) {
-    this.codigoTarea = iCodigo;
+
+/******************************NUEVO TAREA****************************************/
+
+function Tarea(iCodigoTarea, iIdTipoTarea, iIdProyecto, sIdTrabajador, sNombreTarea, dFechaIni,oProyecto, dFechaFin, bEstado) {
+
+    this.codigoTarea = iCodigoTarea;
+    this.codigoTipoTarea = iIdTipoTarea;
+    this.codigoProyecto = iIdProyecto;
+    this.codigoTrabajador = sIdTrabajador;
     this.nombreProyecto = oProyecto;
     this.fechaInicio = dFechaIni;
     this.fechaFin = dFechaFin;
     this.nombreTarea = sNombreTarea;
     this.estado = bEstado;
 }
+
+
+//A PARTIR DE ESTA CLASE NUEVA, GENERAR LOS METODOS NECESARIOS, ADAPTANDO LOS QUE TENEMOS. ***********************
 
 Consultoria.prototype.anadeTarea = function (oTarea) {
     this.tareas.push(oTarea);
@@ -687,6 +778,38 @@ Consultoria.prototype.listarTareas = function(){
     arraylistar[1] = oInfo;
     return arraylistar;
 };
+
+
+
+
+
+
+// TIPO TAREAS
+
+/******************************NUEVO TIPO TAREA****************************************/
+
+
+function TipoTarea(iIdTipoTarea, sNombreTipoTarea, sDescripcion) {
+
+    this.idTipoTarea = iIdTipoTarea;
+    this.nombreTipoTarea = sNombreTipoTarea;
+    this.descripcion = sDescripcion;
+}
+
+//A PARTIR DE ESTA CLASE NUEVA, GENERAR LOS METODOS NECESARIOS. ***********************
+
+
+
+/***************************************** ***********************************************/
+
+
+
+
+
+
+
+
+
 //ANALISTA
 
 function Analista(nombreTrabajador, dniTrabajador, apellidosTrabajador, telefonoTrabajador, direccionTrabajador, oProgramadores) {

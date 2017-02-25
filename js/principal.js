@@ -17,7 +17,7 @@ function loadXMLDoc(filename) {
     return xhttp.responseXML;
 }
 
-cargaDatos();
+//cargaDatos();
 
 function cargaDatos() {
 
@@ -206,65 +206,6 @@ function cargarContratos(arrayContratos) {
 
 document.getElementById('eventInicio').addEventListener('click', pantallaInicio, false);
 
-document.getElementById('eventNuevoCliente').addEventListener('click', nuevoCliente, false);
-
-document.getElementById('eventModificaCliente').addEventListener('click', modificaCliente, false);
-
-document.getElementById('eventNuevaIncidencia').addEventListener('click', nuevaIncidencia, false);
-
-document.getElementById('eventModificaIncidencia').addEventListener('click', modificaIncidencia, false);
-
-document.getElementById('eventNuevaPublicidad').addEventListener('click', nuevaPublicidad, false);
-
-document.getElementById('eventEliminarPublicidad').addEventListener('click', eliminarPublicidad, false);
-
-document.getElementById('eventNuevoContrato').addEventListener('click', nuevoContrato, false);
-
-document.getElementById('eventModificarContrato').addEventListener('click', modificarContrato, false);
-
-document.getElementById('eventNuevoAdmin').addEventListener('click', nuevoAdministrador, false);
-
-document.getElementById('eventModificarAdmin').addEventListener('click', modificarAdministrador, false);
-
-document.getElementById('eventNuevoProyecto').addEventListener('click', nuevoProyecto, false);
-
-document.getElementById('eventModificaProyecto').addEventListener('click', modificarProyecto, false);
-
-document.getElementById('eventNuevaTarea').addEventListener('click', nuevaTarea, false);
-
-document.getElementById('eventModificaTarea').addEventListener('click', modificaTarea, false);
-
-document.getElementById('eventNuevoAnalista').addEventListener('click', nuevoAnalista, false);
-
-document.getElementById('eventModificaAnalista').addEventListener('click', modificaAnalista, false);
-
-document.getElementById('eventNuevoProgramador').addEventListener('click', nuevoProgramador, false);
-
-document.getElementById('eventModificaProgramador').addEventListener('click', modificaProgramador, false);
-
-document.getElementById('eventListarProgramadores').addEventListener('click', listaProgramadores, false);
-
-document.getElementById('eventListarAdministrador').addEventListener('click', listaAdministradores, false);
-
-document.getElementById('eventListarAnalistas').addEventListener('click', listaAnalistas, false);
-
-document.getElementById('eventListarIncidencias').addEventListener('click', function(){ listaIncidencias("Todas")}, false);
-
-document.getElementById('eventListarIncidenciasSinCerrar').addEventListener('click', function(){ listaIncidencias("Abiertas")}, false);
-
-document.getElementById('eventListarClientes').addEventListener('click', listaClientes, false);
-
-document.getElementById('eventListarPublicidad').addEventListener('click', listarPublicidadesFiltradas, false);
-
-document.getElementById('listaTodaPublicidad').addEventListener('click', listaPublicidad, false);
-
-document.getElementById('limpiarTablasPubli').addEventListener('click', limpiarTablasPublicidad, false);
-
-document.getElementById('eventlistarContrato').addEventListener('click', listaContrato, false);
-
-document.getElementById('eventListarProyecto').addEventListener('click', listaProyecto, false);
-
-document.getElementById('eventListarTareas').addEventListener('click', listaTareas, false);
 
 
 /*
@@ -283,7 +224,7 @@ document.getElementById('fechaini').addEventListener('change', actualizarFechaFi
 
 
 //Eventos Combos *****************************************************************************************
-
+/*
 document.getElementById('selectAdmin_ModAdm').addEventListener('change', muestraDatosDeEsteAdmin, false);
 
 document.getElementById('selectCliente_ModCli').addEventListener('change', muestraDatosDeEsteCliente, false);
@@ -303,6 +244,7 @@ document.getElementById('selectListaPub_Cli').addEventListener('change', listaPu
 document.getElementById('selectListaPub_Admin').addEventListener('change', listaPubliPorAdmin, true);
 
 document.getElementById('selectTarea_ModTarea').addEventListener('change', muestraDatosDeEstaTarea, true);
+*/
 
 //Ocultar inputs
 function mostrarCampos(selector) {
@@ -328,263 +270,23 @@ document.getElementById('eventGenerarCodigoTarea').addEventListener('click', gen
 
 function ocultarFormularios() {
     document.getElementById('clearfix').style.display = 'block';
-    document.getElementById('divFormNuevoCliente').style.display = 'none';
-    document.getElementById('divFormModificaCliente').style.display = 'none';
-    document.getElementById('divFormNuevaIncidencia').style.display = 'none';
-    document.getElementById('divFormModificaIncidencia').style.display = 'none';
-    document.getElementById('divFormNuevaPublioidad').style.display = 'none';
-    document.getElementById('divFormEliminaPublicidad').style.display = 'none';
-    document.getElementById('divFormNuevoContrato').style.display = 'none';
-    document.getElementById('divFormModificarContrato').style.display = 'none';
-    document.getElementById('divFormNuevoAdministrador').style.display = 'none';
-    document.getElementById('divFormModificarAdministrador').style.display = 'none';
-    document.getElementById('divFormNuevoProyecto').style.display = 'none';
-    document.getElementById('divFormModificaProyecto').style.display = 'none';
-    document.getElementById('divFormNuevaTarea').style.display = 'none';
-    document.getElementById('divFormModificaTarea').style.display = 'none';
-    document.getElementById('divFormNuevoAnalista').style.display = 'none';
-    document.getElementById('divFormModificaAnalista').style.display = 'none';
-    document.getElementById('divFormNuevoProgramador').style.display = 'none';
-    document.getElementById('divFormModificaProgramador').style.display = 'none';
-    document.getElementById('pantallaInicial').style.display = 'none';
-    document.getElementById('tablas').style.display = 'none';
-    document.getElementById('divFormListarPublicidad').style.display = 'none';
+  
+ 
 }
 
-function nuevoCliente() {
-    ocultarFormularios();
-    document.getElementById('divFormNuevoCliente').style.display = 'block';
-    document.getElementById('formuNuevoCliente').reset();
-
-    //Comprobar que los campos de texto no tengan la clase "error", si la tienen la elimina.
-    comprobarCampos('formuNuevoCliente',false);
-}
-
-function modificaCliente() {
-    ocultarFormularios();
-    document.getElementById('divFormModificaCliente').style.display = 'block';
-    document.getElementById('formuModificaCliente').reset();
-
-    var oFormu = document.getElementById('formuModificaCliente').querySelectorAll('input');
-    for (var i = 0; i < oFormu.length; i++) {
-        oFormu[i].setAttribute('readonly', 'readonly');
-    }
-
-    vaciarCombo('#selectCliente_ModCli');  //Vaciar el combo por si contiene algo anterior
-    cargaComboClientes('#selectCliente_ModCli');   //Cargar lista de clientes existentes
-
-    comprobarCampos('formuModificaCliente');
-}
-
-function nuevaIncidencia() {
-    ocultarFormularios();
-    document.getElementById('divFormNuevaIncidencia').style.display = 'block';
-    document.getElementById('formuNuevaIncidencia').reset();
-
-    var oFormu = document.getElementById('formuNuevaIncidencia').querySelectorAll('input');
-    for (var i = 0; i < oFormu.length; i++) {
-        if (oFormu[i].classList.contains('error')) {
-            oFormu[i].classList.remove('error');
-        }
-    }
-    document.getElementById('formuNuevaIncidencia').querySelector('textarea').classList.remove('error');
-    document.getElementById('formuNuevaIncidencia').querySelector('select').classList.remove('error');
-
-    vaciarCombo('#administradores_NueInc');  //Vaciar el combo por si contiene algo anterior
-    //Cargar el combo
-    cargaComboAdministradores('#administradores_NueInc');
-    comprobarCampos('formuNuevaIncidencia');
-}
-
-function modificaIncidencia() {
-
-    ocultarFormularios();
-    document.getElementById('divFormModificaIncidencia').style.display = 'block';
-    document.getElementById('formuModificaIncidencia').reset();
-
-    vaciarCombo('#incidencia_ModInc');  //Vaciar el combo por si contiene algo anterior
-
-    //Cargar las incidencias existentes
-    var sMsg = cargaComboIncidencias();
-    if(sMsg != "Hay Incidencias"){
-        toastr.warning(sMsg);
-    }
-
-    //Comprobar que los campos de texto no tengan la clase "error", si la tienen la elimina.
-    comprobarCampos('formuModificaIncidencia');
-}
-
-function nuevaPublicidad() {
-
-    ocultarFormularios();
-    document.getElementById('divFormNuevaPublioidad').style.display = 'block';
-    document.getElementById('formuNuevaPublicidad').reset();
-
-    vaciarCombo('#selectAdmin_NuePub');
-    vaciarCombo('#cliente_NuePub');
-
-    cargaComboAdministradores('#selectAdmin_NuePub');
-    cargaComboClientes('#cliente_NuePub');
-
-    //Comprobar que los campos de texto no tengan la clase "error", si la tienen la elimina.
-    comprobarCampos('formuNuevaPublicidad');
-    document.getElementById('formuNuevaPublicidad').descripcionPublicidad.className = "form-control textarea-md";
-
-}
-
-function eliminarPublicidad() {
-    ocultarFormularios();
-    document.getElementById('divFormEliminaPublicidad').style.display = 'block';
-    document.getElementById('formuElimiarPublicidad').reset();
-
-    vaciarCombo('#selectPublicidad_EliPub');
-
-    cargarComboPublicidad('#selectPublicidad_EliPub');
-
-    //Comprobar que los campos de texto no tengan la clase "error", si la tienen la elimina.
-    var oFormu = document.getElementById('formuElimiarPublicidad').querySelectorAll('select');
-    for (var i = 0; i < oFormu.length; i++) {
-        if (oFormu[i].classList.contains('error')) {
-            oFormu[i].classList.remove('error');
-        }
-    }
-    comprobarCampos('formuElimiarPublicidad');
-
-}
-
-function listarPublicidadesFiltradas(){
-
-    ocultarFormularios();
-    document.getElementById('divFormListarPublicidad').style.display = 'block';
-    document.getElementById('formuListarPublicidad').reset();
-
-    vaciarCombo('#selectListaPub_Cli');
-    vaciarCombo('#selectListaPub_Admin');
-
-    cargaComboAdministradores('#selectListaPub_Admin');
-    cargaComboClientes('#selectListaPub_Cli');
-
-    //Comprobar que los campos de texto no tengan la clase "error", si la tienen la elimina.
-    comprobarCampos('formuListarPublicidad');
-
-    limpiarTablasPublicidad();
-
-}
-
-function nuevoContrato() {
-    ocultarFormularios();
-    document.getElementById('divFormNuevoContrato').style.display = 'block';
-    document.getElementById('formuNuevoContrato').reset();
-
-    //Comprobar que los campos de texto no tengan la clase "error", si la tienen la elimina.
-    var oFormu = document.getElementById('formuNuevoContrato').querySelectorAll('input');
-    for (var i = 0; i < oFormu.length; i++) {
-        if (oFormu[i].classList.contains('error')) {
-            oFormu[i].classList.remove('error');
-        }
-    }
-
-    vaciarCombo('#nombreProyecto_NueCon');
-    vaciarCombo('#cliente_NueCon');
-
-    if (oConsultoria.clientes.length > 0 && oConsultoria.proyectos.length > 0) {
-
-        //Combo proyectos: '#nombreProyecto_NueCon'
-        cargaComboProyectos('#nombreProyecto_NueCon');
-        //Combo clientes:
-        cargaComboClientes('#cliente_NueCon');
-    } else {
-        toastr.error("Aun no se han registrado Proyectos y/o Clientes en el sistema. <br>" +
-            "No es posible firmar contratos");
-    }
-
-    comprobarCampos('formuNuevoContrato');
-}
-
-function modificarContrato() {
-    ocultarFormularios();
-    document.getElementById('divFormModificarContrato').style.display = 'block';
-    document.getElementById('formuModificarContrato').reset();
-
-    //Comprobar que los campos de texto no tengan la clase "error", si la tienen la elimina.
-    var oFormu = document.getElementById('formuModificarContrato').querySelectorAll('input');
-    for (var i = 0; i < oFormu.length; i++) {
-        if (oFormu[i].classList.contains('error')) {
-            oFormu[i].classList.remove('error');
-        }
-    }
-
-    vaciarCombo('#selectContrato_ModCon');
-
-    document.querySelector('#nomCon').setAttribute('class', 'form-group oculto');
-    document.querySelector('#nomCli').setAttribute('class', 'form-group oculto');
-
-    if (oConsultoria.contratos.length > 0) {
-        cargaComboContratos('#selectContrato_ModCon');
-    } else {
-        toastr.error("Aun no se han registrado Contratos en el sistema. <br>" +
-            "No es posible modificar contratos");
-    }
-    comprobarCampos('formuModificarContrato');
-}
-
-function nuevoAdministrador() {
-    ocultarFormularios();
-    document.getElementById('divFormNuevoAdministrador').style.display = 'block';
-    document.getElementById('formuNuevoAdmin').reset();
-
-    //Comprobar que los campos de texto no tengan la clase "error", si la tienen la elimina y se el añade el parametro false para indicar que no tiene select el formulario.
-    comprobarCampos('formuNuevoAdmin',false);
-
-}
-
-function modificarAdministrador() {
-    ocultarFormularios();
-    document.getElementById('divFormModificarAdministrador').style.display = 'block';
-    document.getElementById('formuModificarAdmin').reset();
-
-    var oFormu = document.getElementById('formuModificarAdmin').querySelectorAll('input');
-    for (var i = 0; i < oFormu.length; i++) {
-        oFormu[i].setAttribute('readonly', 'readonly');
-    }
-
-    vaciarCombo('#selectAdmin_ModAdm');  //Vaciar el combo por si contiene algo de haber entrado antes en este formulario
-    cargaComboAdministradores('#selectAdmin_ModAdm'); //Cargar los administradores existentes
-    comprobarCampos('formuModificarAdmin');
-}
-
-function nuevoProyecto() {
-    ocultarFormularios();
-    document.getElementById('divFormNuevoProyecto').style.display = 'block';
-    document.getElementById('formuNuevoProyecto').reset();
-    comprobarCampos('formuNuevoProyecto');
-
-    vaciarCombo('#tareasProyecto');
-    cargaComboTareas('#tareasProyecto');
-
-    vaciarCombo('#analistasProyecto');
-    cargaComboAnalista('#analistasProyecto');
-
-}
-
-function modificarProyecto() {
-    ocultarFormularios();
-    document.getElementById('divFormModificaProyecto').style.display = 'block';
-    document.getElementById('formuModificaProyecto').reset();
-    comprobarCampos('formuModificaProyecto');
-
-    vaciarCombo('#selectProy_ModProy');
-    cargaComboProyectos('#selectProy_ModProy');
-
-    vaciarCombo('#tareasProyMod');
-    cargaComboTareas('#tareasProyMod');
 
 
-    vaciarCombo('#analistasProyMod');
-    cargaComboAnalista('#analistasProyMod');
 
-  ocultarCampos("formuModificaProyecto");
-}
+
+
+
+
+
+
+
+
+
+
 
 function ocultarCampos(idFormulario){
 
@@ -600,55 +302,12 @@ function ocultarCampos(idFormulario){
 
 }
 
-function nuevaTarea() {
-    ocultarFormularios();
-    document.getElementById('divFormNuevaTarea').style.display = 'block';
-    document.getElementById('formuNuevaTarea').reset();
-    comprobarCampos('formuNuevaTarea');
-    vaciarCombo('#nombreProyectoSelect');
-    cargaComboProyectos('#nombreProyectoSelect');
-}
-
-function modificaTarea() {
-    ocultarFormularios();
-    document.getElementById('divFormModificaTarea').style.display = 'block';
-    document.getElementById('formuModificaTarea').reset();
-    comprobarCampos('formuModificaTarea');
-    vaciarCombo('#selectTarea_ModTarea');
-    cargaComboTareas("#selectTarea_ModTarea");
-    vaciarCombo('#nombreProyectoSelectMod');
-    cargaComboProyectos("#nombreProyectoSelectMod");
-    ocultarCampos("formuModificaTarea");
-}
-
-function nuevoAnalista() {
-    ocultarFormularios();
-    document.getElementById('divFormNuevoAnalista').style.display = 'block';
-    document.getElementById('formuNuevoAnalista').reset();
-
-
-    vaciarCombo('#selectPrograAnalista');
-    cargaComboProgramador('#selectPrograAnalista');
-    comprobarCampos('formuNuevoAnalista');
-}
-
-function modificaAnalista() {
-    ocultarFormularios();
-    document.getElementById('divFormModificaAnalista').style.display = 'block';
-    document.getElementById('formuModificaAnalista').reset();
-
-    ocultarCampos("formuModificaAnalista");
 
 
 
-    vaciarCombo('#selectAnalis_Mod');  //Vaciar el combo por si contiene algo de haber entrado antes en este formulario
-    cargaComboAnalista('#selectAnalis_Mod'); //Cargar los programadores de los analistas existentes
-    vaciarCombo('#selectPrograAnalistaModifica');
-    cargaComboProgramador('#selectPrograAnalistaModifica');
 
-    ocultarCampos("formuModificaAnalista");
-    comprobarCampos('formuModificaAnalista');
-}
+
+
 
 function generaCodigos() {
 
@@ -668,19 +327,7 @@ function generarCodigoTarea() {
     inputCodigoTarea.value = generaCodigos();
 }
 
-function nuevoProgramador() {
-    ocultarFormularios();
-    document.getElementById('divFormNuevoProgramador').style.display = 'block';
-    document.getElementById('formuNuevoProgramador').reset();
 
-    //carga combos programador y analista
-    vaciarCombo('#selectAnalistaProgr');
-    cargaComboAnalista('#selectAnalistaProgr');
-
-    //Comprobar que los campos de texto no tengan la clase "error", si la tienen la elimina.
-    comprobarCampos('formuNuevoProgramador',false);//se indica false porque no tiene select en el codigo
-
-}
 
 function comprobarCampos(id,select) {
     if(select==undefined)
@@ -700,20 +347,7 @@ function comprobarCampos(id,select) {
     }}
 }
 
-function modificaProgramador() {
-    ocultarFormularios();
-    document.getElementById('divFormModificaProgramador').style.display = 'block';
-    document.getElementById('formuModificaProgramador').reset();
 
-
-    //carga combos programador y analista
-    vaciarCombo('#selectProgram_Mod');
-    cargaComboProgramador('#selectProgram_Mod');
-    vaciarCombo('#selectAnalistaProgrMod');
-    cargaComboAnalista('#selectAnalistaProgrMod');
-    comprobarCampos('formuNuevoProgramador');
-    ocultarCampos("formuModificaProgramador");
-}
 
 
 

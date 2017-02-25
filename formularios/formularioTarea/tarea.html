@@ -1,0 +1,104 @@
+
+<!-- ********** NUEVA TAREA ********** -->
+
+<div class="container" id="divFormNuevaTarea">
+
+    <form class="form-horizontal" id="formuNuevaTarea">
+        <fieldset>
+
+
+            <legend class="text-center">Nueva Tarea</legend>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="nTareaCodigo">Código</label>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input id="nTareaCodigo" name="nTareaCodigo" class="form-control" placeholder="Código"
+                               type="text" required="" disabled="disabled">
+                        <span class="input-group-addon" href="#" id="eventGenerarCodigoTarea"><a href="#">Código</a></span>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="nombreTarea">Nombre</label>
+                <div class="col-md-4">
+                    <input id="nombreTarea" name="nombreTarea" type="text" placeholder="Nombre Tarea"
+                           class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="fechaini">Fecha Inicial</label>
+                <div class="col-md-4">
+                    <input id="fechaIni" name="fechaIni" type="text" placeholder="Fecha inicial"
+                           class="form-control input-md">
+
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="nombreProyectoSelect">Nombre Proyecto</label>
+                <div class="col-md-4">
+                    <select id="nombreProyectoSelect" name="nombreProyectoSelect" class="form-control">
+
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="fechafin">Fecha Fin</label>
+                <div class="col-md-4">
+                    <input id="fechaFin" name="fechaFin" type="text" placeholder="Fecha final"
+                           class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Estado</label>
+                <div class="col-md-5">
+                    <label class="radio-inline" for="radioEstado-0">
+                        <input type="radio" name="radioEstado" id="radioEstado-0" value="Sin Hacer"
+                               checked="checked">
+                        Sin Hacer
+                    </label>
+                    <label class="radio-inline" for="radioEstado-1">
+                        <input type="radio" name="radioEstado" id="radioEstado-1" value="Empezado">
+                        Empezado
+                    </label>
+                    <label class="radio-inline" for="radioEstado-2">
+                        <input type="radio" name="radioEstado" id="radioEstado-2" value="Avanzado">
+                        Avanzado
+                    </label>
+                    <label class="radio-inline" for="radioEstado-3">
+                        <input type="radio" name="radioEstado" id="radioEstado-3" value="Casi Terminado">
+                        Casi Terminado
+                    </label>
+                    <label class="radio-inline" for="radioEstado-4">
+                        <input type="radio" name="radioEstado" id="radioEstado-4" value="Finalizado">
+                        Finalizado
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="CrearTarea"></label>
+                <div class="col-md-4">
+                    <button type="button" id="crearTarea" name="crearTarea" class="btn btn-primary">Crear Tarea
+                    </button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+
+
+</div>

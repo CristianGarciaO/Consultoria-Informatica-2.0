@@ -1,18 +1,16 @@
-//EVENTO PARA EL CLICK DEL FORMULARIO CLIENTE
-
-/*$("").click(function () {
-    
-});*/
-
 // Creacion del dialogo
 
 $("#divFormCliente").dialog({
+    title:"Cliente",
     autoOpen: true,  // Es el valor por defecto
     // beforeClose: antesDeCerrarse,
     close: function () {
-        $("#divFormCliente")[0].reset();
+        $("#formuCliente")[0].reset();
     },
-    width: 550,
+    width: 935,
+    minwitdh: 700,
+    maxwidth: 700,
+    fluid: true,
     closeOnEscape: false, // No se cierra con ESCAPE
     hide: {
         effect: "explode",
@@ -21,7 +19,10 @@ $("#divFormCliente").dialog({
     show: "fold",
     modal: true,
     buttons: [{
-        text: "Aceptar",
+        text: "Guardar",
+        click: procesarRespuesta
+    },{
+        text: "Modificar",
         click: procesarRespuesta
     }, {
         text: "Cancelar",

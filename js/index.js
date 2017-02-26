@@ -1,6 +1,3 @@
-
-// Manejo al inicio
-//window.addEventListener('load',iniciar,false);
 $(document).ready(iniciar);
 function iniciar(){
 
@@ -12,10 +9,11 @@ function iniciar(){
 
     $('#activarFormuCliente').click(function(){
 
+        //ocultarFormularios();
         // SE VERIFICA SI EL FORMU ESTABA ANTES
         if( $('#divFormCliente').size() == 0 ){
 
-            $('#formularios').load("formularios/formularioCliente/cliente.html", function()
+            $('#dialogoCliente').load("formularios/formularioCliente/cliente.html", function()
                 {
                     $.getScript("formularios/formularioCliente/cliente.js")
                 }
@@ -29,12 +27,12 @@ function iniciar(){
 
     $('#activarFormuTrabajador').click(function(){
 
-      //  $("form:not('#formuTrabajador')").hide("normal");
+      //ocultarFormularios();
 
         // SE VERIFICA SI EL FORMU ESTABA ANTES
         if( $('#divFormTrabajador').size() == 0 ){
 
-            $('#formularios2').load("formularios/formularioTrabajador/trabajador.html", function()
+            $('#dialogoTrabajador').load("formularios/formularioTrabajador/trabajador.html", function()
                 {
                     $.getScript("formularios/formularioTrabajador/trabajador.js")
                 }
@@ -45,10 +43,49 @@ function iniciar(){
         }
 
     });
+    $('#activarFormuProyectos').click(function(){
+
+       // ocultarFormularios();
+        // SE VERIFICA SI EL FORMU ESTABA ANTES
+        if( $('#divFormProyecto').size() == 0 ){
+
+            $('#dialogoProyecto').load("formularios/formularioProyecto/proyecto.html", function()
+                {
+                    $.getScript("formularios/formularioProyecto/proyecto.js")
+                }
+            );
+        } else {
+            //SE ABRE SI ESTA CERRADO
+            $('#divFormProyecto').dialog("open");
+        }
+
+    });
+    $('#activarFormuTareas').click(function(){
+
+        // ocultarFormularios();
+        // SE VERIFICA SI EL FORMU ESTABA ANTES
+        if( $('#divFormTarea').size() == 0 ){
+
+            $('#dialogoTarea').load("formularios/formularioTarea/tarea.html", function()
+                {
+                    $.getScript("formularios/formularioTarea/tarea.js")
+                }
+            );
+        } else {
+            //SE ABRE SI ESTA CERRADO
+            $('#divFormProyecto').dialog("open");
+        }
+
+    });
 
 
 
 
 
+}
+function ocultarFormularios() {
+    $('#divFormCliente').hide();
+    $('#divFormTrabajador').hide();
+    $('#divFormProyecto').hide();
 }
 

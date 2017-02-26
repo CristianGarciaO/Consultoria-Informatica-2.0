@@ -20,10 +20,10 @@ $("#divFormTrabajador").dialog({
     modal: true,
     buttons: [{
         text: "Guardar",
-        click: procesarGuardar
+        click: procesarGuardarTrabajador
     },{
         text: "Modificar",
-        click: procesarModificar
+        click: procesarGuardarTrabajador
     }, {
         text: "Cancelar",
         click: function() {
@@ -32,7 +32,7 @@ $("#divFormTrabajador").dialog({
     }]
 });
 
-function procesarGuardar()
+function procesarGuardarTrabajador()
 {
 
 

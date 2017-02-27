@@ -352,91 +352,96 @@ function comprobarCampos(id,select) {
 
 
 
-//******************************************************************************************************************
-// EXPRESIONES REGULARES Y FUNCIONES *******************************************************************************
-//******************************************************************************************************************
-
-
-var oExRegTelefono = /^([9|6]{1})[0-9]{8}/;  // Telefonos
-var oExRegNombre = /^[a-záéíóúñA-ZÑÁÉÍÓÚ]{3}([a-záéíóúñA-ZÑÁÉÍÓÚ\s]){0,30}$/; //Nombres (nombre mas corto permitido 3 caracteres
-var oExRegApellido = /^[a-záéíóúñA-ZÁÉÍÓÚ]{4}([a-záéíóúñA-ZÑÁÉÍÓÚ\s]){0,30}/; //Apellidos
-var oExRegDireccion = /^([a-záéíóúñA-ZÑÁÉÍÓÚ]{1})([a-záéíóúñA-ZÑÁÉÍÓÚ\s\d\.\,\º\ª\-\/]{0,39})$/; //Direccion
-var oExRegDni = /^[0-9]{8}[A-Z]{1}$/;
-var oExRegFechas = /^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/;  //Fechas: 2013-12-14
-var oExRegPrecio = /^([0-9]{1,10}[\,\.][0-9]{1,2})$/;  //Precio con dos decimales obligatorios.
-var oExRegAsunto = /^[a-záéíóúñA-ZÑÁÉÍÓÚ\s]{1,60}$/;  // Asunto
-
-
-function validaNombre(cadena) {
-    var resultado = false;
-    if (cadena != "") {
-        resultado = oExRegNombre.test(cadena);
-    }
-    return resultado;
-}
-
-
-
-function validaTelefono(cadena) {
-    var resultado = false;
-    if (cadena != "") {
-        resultado = oExRegTelefono.test(cadena);
-    }
-    return resultado;
-}
-
-function validaApellido(cadena) {
-    var resultado = false;
-    if (cadena != "") {
-        resultado = oExRegApellido.test(cadena);
-    }
-    return resultado;
-}
-
-function validaDireccion(cadena) {
-    var resultado = false;
-    if (cadena != "") {
-        resultado = oExRegDireccion.test(cadena);
-    }
-    return resultado;
-}
-
-function validaDni(cadena) {
-    var resultado = false;
-    if (cadena != "") {
-        resultado = oExRegDni.test(cadena);
-    }
-    return resultado;
-}
-
-function validaFechas(cadena) {
-    var resultado = false;
-    if (cadena != "") {
-        resultado = oExRegFechas.test(cadena);
-    }
-    return resultado;
-}
-
-function validaPrecio(cadena) {
-    var resultado = false;
-    if (cadena != "") {
-        resultado = oExRegPrecio.test(cadena);
-    }
-    return resultado;
-}
-
-function validaAsunto(cadena) {
-    var resultado = false;
-    if (cadena != "") {
-        resultado = oExRegAsunto.test(cadena);
-    }
-    return resultado;
-}
+// //******************************************************************************************************************
+// // EXPRESIONES REGULARES Y FUNCIONES *******************************************************************************
+// //******************************************************************************************************************
+//
+//
+// //Esto lo dejamos aqui, que se va a usar en todos los formularios para validar y no es cuestion de repetir el mismo
+// //codigo en todos los script
+//
+// var oExRegTelefono = /^([9|6]{1})[0-9]{8}/;  // Telefonos
+// var oExRegNombre = /^[a-záéíóúñA-ZÑÁÉÍÓÚ]{3}([a-záéíóúñA-ZÑÁÉÍÓÚ\s]){0,30}$/; //Nombres (nombre mas corto permitido 3 caracteres
+// var oExRegApellido = /^[a-záéíóúñA-ZÁÉÍÓÚ]{4}([a-záéíóúñA-ZÑÁÉÍÓÚ\s]){0,30}/; //Apellidos
+// var oExRegDireccion = /^([a-záéíóúñA-ZÑÁÉÍÓÚ]{1})([a-záéíóúñA-ZÑÁÉÍÓÚ\s\d\.\,\º\ª\-\/]{0,39})$/; //Direccion
+// var oExRegDni = /^[0-9]{8}[A-Z]{1}$/;
+// var oExRegFechas = /^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/;  //Fechas: 2013-12-14
+// var oExRegPrecio = /^([0-9]{1,10}[\,\.][0-9]{1,2})$/;  //Precio con dos decimales obligatorios.
+// var oExRegAsunto = /^[a-záéíóúñA-ZÑÁÉÍÓÚ\s]{1,60}$/;  // Asunto
+//
+//
+// function validaNombre(cadena) {
+//     var resultado = false;
+//     if (cadena != "") {
+//         resultado = oExRegNombre.test(cadena);
+//     }
+//     return resultado;
+// }
+//
+// function validaTelefono(cadena) {
+//     var resultado = false;
+//     if (cadena != "") {
+//         resultado = oExRegTelefono.test(cadena);
+//     }
+//     return resultado;
+// }
+//
+// function validaApellido(cadena) {
+//     var resultado = false;
+//     if (cadena != "") {
+//         resultado = oExRegApellido.test(cadena);
+//     }
+//     return resultado;
+// }
+//
+// function validaDireccion(cadena) {
+//     var resultado = false;
+//     if (cadena != "") {
+//         resultado = oExRegDireccion.test(cadena);
+//     }
+//     return resultado;
+// }
+//
+// function validaDni(cadena) {
+//     var resultado = false;
+//     if (cadena != "") {
+//         resultado = oExRegDni.test(cadena);
+//     }
+//     return resultado;
+// }
+//
+// function validaFechas(cadena) {
+//     var resultado = false;
+//     if (cadena != "") {
+//         resultado = oExRegFechas.test(cadena);
+//     }
+//     return resultado;
+// }
+//
+// function validaPrecio(cadena) {
+//     var resultado = false;
+//     if (cadena != "") {
+//         resultado = oExRegPrecio.test(cadena);
+//     }
+//     return resultado;
+// }
+//
+// function validaAsunto(cadena) {
+//     var resultado = false;
+//     if (cadena != "") {
+//         resultado = oExRegAsunto.test(cadena);
+//     }
+//     return resultado;
+// }
 
 
 // *******************************************************************************************************************
 // VALIDACIONES ******************************************************************************************************
 //********************************************************************************************************************
+
+
+//Este apartado lo llevamos cada uno a su script correspondiente.
+
 
 
 // NUEVO ADMINISTRADOR ************************************************
@@ -705,274 +710,274 @@ function validaFormModAdmin() {
 
 }
 
-
-// NUEVO CLIENTE ******************************************************
-// ********************************************************************
-
-document.querySelector('#guardar_NueCli').addEventListener('click', validaFormNuevoCliente, false);
-
-document.querySelector('#limpiar_NueCli').addEventListener('click', nuevoCliente, false);
-
-function validaFormNuevoCliente() {
-
-    var bValido = true;
-    var sErrores = "";
-
-    var nombre = document.getElementById('nombreCliente_NueCli').value.trim();
-    document.getElementById('nombreCliente_NueCli').value = nombre;
-
-    if (validaNombre(nombre) == false) {
-
-        if (bValido == true) {
-            bValido = false;
-            //Este campo obtiene el foco
-            document.getElementById('formuNuevoCliente').nombreCliente.focus();
-        }
-        sErrores += "NOMBRE del Cliente incorrecto (formato: Máx 30 caracteres)";
-
-        //Marcar error
-        document.getElementById('formuNuevoCliente').nombreCliente.className = "form-control input-md error";
-
-    } else {
-        //Desmarcar error
-        document.getElementById('formuNuevoCliente').nombreCliente.className = "form-control input-md";  //Pone esta class a la etiqueta.
-    }
-
-
-    var apellido = document.getElementById('apellidoCliente_NueCli').value.trim();
-    document.getElementById('apellidoCliente_NueCli').value = apellido;
-
-
-    if (validaApellido(apellido) == false) {
-
-        if (bValido == true) {
-            bValido = false;
-            //Este campo obtiene el foco
-            document.getElementById('formuNuevoCliente').apellidoCliente.focus();
-        }
-        sErrores += "<br><br> APELLIDO del Cliente incorrecto (formato: Máx 30 caracteres)";
-
-        //Marcar error
-        document.getElementById('formuNuevoCliente').apellidoCliente.className = "form-control input-md error";
-
-    } else {
-        //Desmarcar error
-        document.getElementById('formuNuevoCliente').apellidoCliente.className = "form-control input-md";  //Pone esta class a la etiqueta.
-    }
-
-    var dni = document.getElementById('dniCliente_NueCli').value.trim();
-    document.getElementById('dniCliente_NueCli').value = dni;
-
-    if (validaDni(dni) == false) {
-
-        if (bValido == true) {
-            bValido = false;
-            //Este campo obtiene el foco
-            document.getElementById('formuNuevoCliente').dniCliente.focus();
-        }
-        sErrores += "<br><br> DNI del Cliente incorrecto (formato: 8 digitos más letra mayuscula)";
-
-        //Marcar error
-        document.getElementById('formuNuevoCliente').dniCliente.className = "form-control input-md error";
-
-    } else {
-        //Desmarcar error
-        document.getElementById('formuNuevoCliente').dniCliente.className = "form-control input-md";  //Pone esta class a la etiqueta.
-    }
-
-    var tlf = document.getElementById('telefonoCliente_NueCli').value.trim();
-    document.getElementById('telefonoCliente_NueCli').value = tlf;
-
-    if (validaTelefono(tlf) == false) {
-
-        if (bValido == true) {
-            bValido = false;
-            //Este campo obtiene el foco
-            document.getElementById('formuNuevoCliente').telefonoCliente.focus();
-        }
-        sErrores += "<br><br> TELEFONO del Cliente incorrecto (formato: 9 digitos comenzando en 6 o 9)";
-
-        //Marcar error
-        document.getElementById('formuNuevoCliente').telefonoCliente.className = "form-control input-md error";
-
-    } else {
-        //Desmarcar error
-        document.getElementById('formuNuevoCliente').telefonoCliente.className = "form-control input-md";  //Pone esta class a la etiqueta.
-    }
-
-    var direccion = document.getElementById('direccionCliente_NueCli').value.trim();
-    document.getElementById('direccionCliente_NueCli').value = direccion;
-
-    if (validaDireccion(direccion) == false) {
-
-        if (bValido == true) {
-            bValido = false;
-            //Este campo obtiene el foco
-            document.getElementById('formuNuevoCliente').direccionCliente.focus();
-        }
-        sErrores += "<br><br> DIRECCION del Cliente incorrecto (formato: 40 caracteres maximo)";
-
-        //Marcar error
-        document.getElementById('formuNuevoCliente').direccionCliente.className = "form-control input-md error";
-
-    } else {
-        //Desmarcar error
-        document.getElementById('formuNuevoCliente').direccionCliente.className = "form-control input-md";  //Pone esta class a la etiqueta.
-    }
-
-
-    if (bValido == false) {
-        //Mostrar errores
-        toastr.error(sErrores);
-    } else {
-
-
-        var sMensaje = "";
-
-        if (!oConsultoria.existeCliente(dni)) {
-            var contratos = [];  //Array de contratos que pueda tener este cliente
-            var oCliente = new Cliente(nombre, dni, apellido, direccion, tlf, contratos);
-            sMensaje = oConsultoria.anadeCliente(oCliente);
-            toastr.success(sMensaje);
-            nuevoCliente();
-        } else {
-            sMensaje = "Imposible añadir. El Cliente que intenta añadir al sistema ya estaba registrado";
-            toastr.error(sMensaje);
-        }
-    }
-}
-
-
-// MODIFICAR CLIENTE **************************************************
-// ********************************************************************
-
-document.querySelector('#guardar_ModCli').addEventListener('click', validaFormModCliente, false);
-
-document.querySelector('#limpiar_ModCli').addEventListener('click', modificaCliente, false);
-
-function validaFormModCliente() {
-
-    var select = document.getElementById('selectCliente_ModCli');
-
-    if(select.selectedIndex != 0) {
-
-        var bValido = true;
-        var sErrores = "";
-
-        var nombre = document.getElementById('nombreCliente_ModCli').value.trim();
-        document.getElementById('nombreCliente_ModCli').value = nombre;
-
-        if (validaNombre(nombre) == false) {
-
-            if (bValido == true) {
-                bValido = false;
-                //Este campo obtiene el foco
-                document.getElementById('formuModificaCliente').nombreCliente.focus();
-            }
-            sErrores += "NOMBRE del Cliente incorrecto (formato: Máx 30 caracteres)";
-
-            //Marcar error
-            document.getElementById('formuModificaCliente').nombreCliente.className = "form-control input-md error";
-
-        } else {
-            //Desmarcar error
-            document.getElementById('formuModificaCliente').nombreCliente.className = "form-control input-md";  //Pone esta class a la etiqueta.
-        }
-
-
-        var apellido = document.getElementById('apellidoCliente_ModCli').value.trim();
-        document.getElementById('apellidoCliente_ModCli').value = apellido;
-
-
-        if (validaApellido(apellido) == false) {
-
-            if (bValido == true) {
-                bValido = false;
-                //Este campo obtiene el foco
-                document.getElementById('formuModificaCliente').apellidoCliente.focus();
-            }
-            sErrores += "<br><br> APELLIDO del Cliente incorrecto (formato: Máx 30 caracteres)";
-
-            //Marcar error
-            document.getElementById('formuModificaCliente').apellidoCliente.className = "form-control input-md error";
-
-        } else {
-            //Desmarcar error
-            document.getElementById('formuModificaCliente').apellidoCliente.className = "form-control input-md";  //Pone esta class a la etiqueta.
-        }
-
-
-        //DNI no hace falta validarlo. No se permite modificar el existente.
-
-
-        var tlf = document.getElementById('telefonoCliente_ModCli').value.trim();
-        document.getElementById('telefonoCliente_ModCli').value = tlf;
-
-        if (validaTelefono(tlf) == false) {
-
-            if (bValido == true) {
-                bValido = false;
-                //Este campo obtiene el foco
-                document.getElementById('formuModificaCliente').telefonoCliente.focus();
-            }
-            sErrores += "<br><br> TELEFONO del Cliente incorrecto (formato: 9 digitos comenzando en 6 o 9)";
-
-            //Marcar error
-            document.getElementById('formuModificaCliente').telefonoCliente.className = "form-control input-md error";
-
-        } else {
-            //Desmarcar error
-            document.getElementById('formuModificaCliente').telefonoCliente.className = "form-control input-md";  //Pone esta class a la etiqueta.
-        }
-
-        var direccion = document.getElementById('direccionCliente_ModCli').value.trim();
-        document.getElementById('direccionCliente_ModCli').value = direccion;
-
-        if (validaDireccion(direccion) == false) {
-
-            if (bValido == true) {
-                bValido = false;
-                //Este campo obtiene el foco
-                document.getElementById('formuModificaCliente').direccionCliente.focus();
-            }
-            sErrores += "<br><br> DIRECCION del Cliente incorrecto (formato: 40 caracteres maximo)";
-
-            //Marcar error
-            document.getElementById('formuModificaCliente').direccionCliente.className = "form-control input-md error";
-
-        } else {
-            //Desmarcar error
-            document.getElementById('formuModificaCliente').direccionCliente.className = "form-control input-md";  //Pone esta class a la etiqueta.
-        }
-
-
-        if (bValido == false) {
-            //Mostrar errores
-            toastr.error(sErrores);
-        } else {
-            //Aqui estan los datos correctos, los guardamos
-            //El cliente ya existe en el sistema, no hace falta comprobarlo.
-            // Coger el cliente existente y cambiar los valores de sus atributos por los actuales.
-
-            var select = document.querySelector('#selectCliente_ModCli');
-            var dniClienteSeleccionado = select.value;
-            var oCliente = oConsultoria.dameCliente(dniClienteSeleccionado);
-
-            oCliente.nombreCliente = nombre;
-            oCliente.apellidosCliente = apellido;
-            oCliente.telefonoCliente = tlf;
-            oCliente.direccionCliente = direccion;
-
-
-            toastr.success("Datos modificados correctamente");
-
-            modificaCliente();
-        }
-    }else{
-        toastr.error("No puede guardar sin haber seleccionado el cliente que desea modificar");
-    }
-
-}
+//
+// // NUEVO CLIENTE ******************************************************
+// // ********************************************************************
+//
+// document.querySelector('#guardar_NueCli').addEventListener('click', validaFormNuevoCliente, false);
+//
+// document.querySelector('#limpiar_NueCli').addEventListener('click', nuevoCliente, false);
+//
+// function validaFormNuevoCliente() {
+//
+//     var bValido = true;
+//     var sErrores = "";
+//
+//     var nombre = document.getElementById('nombreCliente_NueCli').value.trim();
+//     document.getElementById('nombreCliente_NueCli').value = nombre;
+//
+//     if (validaNombre(nombre) == false) {
+//
+//         if (bValido == true) {
+//             bValido = false;
+//             //Este campo obtiene el foco
+//             document.getElementById('formuNuevoCliente').nombreCliente.focus();
+//         }
+//         sErrores += "NOMBRE del Cliente incorrecto (formato: Máx 30 caracteres)";
+//
+//         //Marcar error
+//         document.getElementById('formuNuevoCliente').nombreCliente.className = "form-control input-md error";
+//
+//     } else {
+//         //Desmarcar error
+//         document.getElementById('formuNuevoCliente').nombreCliente.className = "form-control input-md";  //Pone esta class a la etiqueta.
+//     }
+//
+//
+//     var apellido = document.getElementById('apellidoCliente_NueCli').value.trim();
+//     document.getElementById('apellidoCliente_NueCli').value = apellido;
+//
+//
+//     if (validaApellido(apellido) == false) {
+//
+//         if (bValido == true) {
+//             bValido = false;
+//             //Este campo obtiene el foco
+//             document.getElementById('formuNuevoCliente').apellidoCliente.focus();
+//         }
+//         sErrores += "<br><br> APELLIDO del Cliente incorrecto (formato: Máx 30 caracteres)";
+//
+//         //Marcar error
+//         document.getElementById('formuNuevoCliente').apellidoCliente.className = "form-control input-md error";
+//
+//     } else {
+//         //Desmarcar error
+//         document.getElementById('formuNuevoCliente').apellidoCliente.className = "form-control input-md";  //Pone esta class a la etiqueta.
+//     }
+//
+//     var dni = document.getElementById('dniCliente_NueCli').value.trim();
+//     document.getElementById('dniCliente_NueCli').value = dni;
+//
+//     if (validaDni(dni) == false) {
+//
+//         if (bValido == true) {
+//             bValido = false;
+//             //Este campo obtiene el foco
+//             document.getElementById('formuNuevoCliente').dniCliente.focus();
+//         }
+//         sErrores += "<br><br> DNI del Cliente incorrecto (formato: 8 digitos más letra mayuscula)";
+//
+//         //Marcar error
+//         document.getElementById('formuNuevoCliente').dniCliente.className = "form-control input-md error";
+//
+//     } else {
+//         //Desmarcar error
+//         document.getElementById('formuNuevoCliente').dniCliente.className = "form-control input-md";  //Pone esta class a la etiqueta.
+//     }
+//
+//     var tlf = document.getElementById('telefonoCliente_NueCli').value.trim();
+//     document.getElementById('telefonoCliente_NueCli').value = tlf;
+//
+//     if (validaTelefono(tlf) == false) {
+//
+//         if (bValido == true) {
+//             bValido = false;
+//             //Este campo obtiene el foco
+//             document.getElementById('formuNuevoCliente').telefonoCliente.focus();
+//         }
+//         sErrores += "<br><br> TELEFONO del Cliente incorrecto (formato: 9 digitos comenzando en 6 o 9)";
+//
+//         //Marcar error
+//         document.getElementById('formuNuevoCliente').telefonoCliente.className = "form-control input-md error";
+//
+//     } else {
+//         //Desmarcar error
+//         document.getElementById('formuNuevoCliente').telefonoCliente.className = "form-control input-md";  //Pone esta class a la etiqueta.
+//     }
+//
+//     var direccion = document.getElementById('direccionCliente_NueCli').value.trim();
+//     document.getElementById('direccionCliente_NueCli').value = direccion;
+//
+//     if (validaDireccion(direccion) == false) {
+//
+//         if (bValido == true) {
+//             bValido = false;
+//             //Este campo obtiene el foco
+//             document.getElementById('formuNuevoCliente').direccionCliente.focus();
+//         }
+//         sErrores += "<br><br> DIRECCION del Cliente incorrecto (formato: 40 caracteres maximo)";
+//
+//         //Marcar error
+//         document.getElementById('formuNuevoCliente').direccionCliente.className = "form-control input-md error";
+//
+//     } else {
+//         //Desmarcar error
+//         document.getElementById('formuNuevoCliente').direccionCliente.className = "form-control input-md";  //Pone esta class a la etiqueta.
+//     }
+//
+//
+//     if (bValido == false) {
+//         //Mostrar errores
+//         toastr.error(sErrores);
+//     } else {
+//
+//
+//         var sMensaje = "";
+//
+//         if (!oConsultoria.existeCliente(dni)) {
+//             var contratos = [];  //Array de contratos que pueda tener este cliente
+//             var oCliente = new Cliente(nombre, dni, apellido, direccion, tlf, contratos);
+//             sMensaje = oConsultoria.anadeCliente(oCliente);
+//             toastr.success(sMensaje);
+//             nuevoCliente();
+//         } else {
+//             sMensaje = "Imposible añadir. El Cliente que intenta añadir al sistema ya estaba registrado";
+//             toastr.error(sMensaje);
+//         }
+//     }
+// }
+//
+//
+// // MODIFICAR CLIENTE **************************************************
+// // ********************************************************************
+//
+// document.querySelector('#guardar_ModCli').addEventListener('click', validaFormModCliente, false);
+//
+// document.querySelector('#limpiar_ModCli').addEventListener('click', modificaCliente, false);
+//
+// function validaFormModCliente() {
+//
+//     var select = document.getElementById('selectCliente_ModCli');
+//
+//     if(select.selectedIndex != 0) {
+//
+//         var bValido = true;
+//         var sErrores = "";
+//
+//         var nombre = document.getElementById('nombreCliente_ModCli').value.trim();
+//         document.getElementById('nombreCliente_ModCli').value = nombre;
+//
+//         if (validaNombre(nombre) == false) {
+//
+//             if (bValido == true) {
+//                 bValido = false;
+//                 //Este campo obtiene el foco
+//                 document.getElementById('formuModificaCliente').nombreCliente.focus();
+//             }
+//             sErrores += "NOMBRE del Cliente incorrecto (formato: Máx 30 caracteres)";
+//
+//             //Marcar error
+//             document.getElementById('formuModificaCliente').nombreCliente.className = "form-control input-md error";
+//
+//         } else {
+//             //Desmarcar error
+//             document.getElementById('formuModificaCliente').nombreCliente.className = "form-control input-md";  //Pone esta class a la etiqueta.
+//         }
+//
+//
+//         var apellido = document.getElementById('apellidoCliente_ModCli').value.trim();
+//         document.getElementById('apellidoCliente_ModCli').value = apellido;
+//
+//
+//         if (validaApellido(apellido) == false) {
+//
+//             if (bValido == true) {
+//                 bValido = false;
+//                 //Este campo obtiene el foco
+//                 document.getElementById('formuModificaCliente').apellidoCliente.focus();
+//             }
+//             sErrores += "<br><br> APELLIDO del Cliente incorrecto (formato: Máx 30 caracteres)";
+//
+//             //Marcar error
+//             document.getElementById('formuModificaCliente').apellidoCliente.className = "form-control input-md error";
+//
+//         } else {
+//             //Desmarcar error
+//             document.getElementById('formuModificaCliente').apellidoCliente.className = "form-control input-md";  //Pone esta class a la etiqueta.
+//         }
+//
+//
+//         //DNI no hace falta validarlo. No se permite modificar el existente.
+//
+//
+//         var tlf = document.getElementById('telefonoCliente_ModCli').value.trim();
+//         document.getElementById('telefonoCliente_ModCli').value = tlf;
+//
+//         if (validaTelefono(tlf) == false) {
+//
+//             if (bValido == true) {
+//                 bValido = false;
+//                 //Este campo obtiene el foco
+//                 document.getElementById('formuModificaCliente').telefonoCliente.focus();
+//             }
+//             sErrores += "<br><br> TELEFONO del Cliente incorrecto (formato: 9 digitos comenzando en 6 o 9)";
+//
+//             //Marcar error
+//             document.getElementById('formuModificaCliente').telefonoCliente.className = "form-control input-md error";
+//
+//         } else {
+//             //Desmarcar error
+//             document.getElementById('formuModificaCliente').telefonoCliente.className = "form-control input-md";  //Pone esta class a la etiqueta.
+//         }
+//
+//         var direccion = document.getElementById('direccionCliente_ModCli').value.trim();
+//         document.getElementById('direccionCliente_ModCli').value = direccion;
+//
+//         if (validaDireccion(direccion) == false) {
+//
+//             if (bValido == true) {
+//                 bValido = false;
+//                 //Este campo obtiene el foco
+//                 document.getElementById('formuModificaCliente').direccionCliente.focus();
+//             }
+//             sErrores += "<br><br> DIRECCION del Cliente incorrecto (formato: 40 caracteres maximo)";
+//
+//             //Marcar error
+//             document.getElementById('formuModificaCliente').direccionCliente.className = "form-control input-md error";
+//
+//         } else {
+//             //Desmarcar error
+//             document.getElementById('formuModificaCliente').direccionCliente.className = "form-control input-md";  //Pone esta class a la etiqueta.
+//         }
+//
+//
+//         if (bValido == false) {
+//             //Mostrar errores
+//             toastr.error(sErrores);
+//         } else {
+//             //Aqui estan los datos correctos, los guardamos
+//             //El cliente ya existe en el sistema, no hace falta comprobarlo.
+//             // Coger el cliente existente y cambiar los valores de sus atributos por los actuales.
+//
+//             var select = document.querySelector('#selectCliente_ModCli');
+//             var dniClienteSeleccionado = select.value;
+//             var oCliente = oConsultoria.dameCliente(dniClienteSeleccionado);
+//
+//             oCliente.nombreCliente = nombre;
+//             oCliente.apellidosCliente = apellido;
+//             oCliente.telefonoCliente = tlf;
+//             oCliente.direccionCliente = direccion;
+//
+//
+//             toastr.success("Datos modificados correctamente");
+//
+//             modificaCliente();
+//         }
+//     }else{
+//         toastr.error("No puede guardar sin haber seleccionado el cliente que desea modificar");
+//     }
+//
+// }
 
 
 // NUEVO CONTRATO ******************************************************

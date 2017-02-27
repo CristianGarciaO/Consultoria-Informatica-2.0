@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 }
 
 
-$sql = "SELECT * FROM cliente WHERE dniCliente = '". $oCliente->dni. "';";
+$sql = "SELECT * FROM cliente WHERE dniCliente = '". $oCliente->dniCliente. "';";
 
 $res = $conn->query($sql);
 

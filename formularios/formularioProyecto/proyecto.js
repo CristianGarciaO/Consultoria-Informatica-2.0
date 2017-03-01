@@ -13,16 +13,16 @@ $("#divFormProyecto").dialog({
     fluid: true,
     closeOnEscape: false, // No se cierra con ESCAPE
     hide: {
-        effect: "explode",
+        effect: "puff",
         duration: 1000
     },
-    show: "fold",
+    show: "bounce",
     modal: true,
     buttons: [{
-        text: "Guardar",
+        text: "Guardar Proyecto",
         click: procesarProyecto
     },{
-        text: "Modificar",
+        text: "Modificar Proyecto",
         click: procesarProyecto
     }, {
         text: "Cancelar",

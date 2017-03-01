@@ -13,10 +13,10 @@ $("#divFormTrabajador").dialog({
     fluid: true,
     closeOnEscape: false, // No se cierra con ESCAPE
     hide: {
-        effect: "explode",
+        effect: "fold",
         duration: 1000
     },
-    show: "fold",
+    show: "slide",
     modal: true,
     buttons: [{
         text: "Guardar",

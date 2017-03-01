@@ -132,8 +132,9 @@ CREATE TABLE IF NOT EXISTS `trabajador` (
 
 INSERT INTO `trabajador` (`nombreTrabajador`, `dniTrabajador`, `apellidoTrabajador`, `direccionTrabajador`, `telefonoTrabajador`, `tipoTrabajador`) VALUES
 ('Cristian', '34567843C', 'Ocaña', 'Pasaje Rich', 678945643, 'Programador'),
-('Alejandro', '67453469V', 'Garcia', 'Avenida el Capo', 654367896, 'Administrador');
-
+('Alejandro', '67453469V', 'Garcia', 'Avenida el Capo', 654367896, 'Administrador'),
+('Francisco', '65553464Z', 'Armesto', 'Avenida de la Paz', 655366666, 'Analista'),
+('Lucas', '95153464X', 'Lopez', 'Calle de Esperanza', 659367899, 'Analista');
 --
 -- Índices para tablas volcadas
 --

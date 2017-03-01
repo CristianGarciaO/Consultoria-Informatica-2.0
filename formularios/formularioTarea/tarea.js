@@ -13,17 +13,17 @@ $("#divFormTarea").dialog({
     fluid: true,
     closeOnEscape: false, // No se cierra con ESCAPE
     hide: {
-        effect: "explode",
+        effect: "scale",
         duration: 1000
     },
-    show: "fold",
+    show: "pulsate",
     modal: true,
     buttons: [{
         text: "Guardar",
-        click: procesarProyecto
+        click: procesarTarea
     },{
         text: "Modificar",
-        click: procesarProyecto
+        click: procesarTarea
     }, {
         text: "Cancelar",
         click: function() {
@@ -32,6 +32,6 @@ $("#divFormTarea").dialog({
     }]
 });
 
-function procesarProyecto() {
+function procesarTarea() {
 
 }

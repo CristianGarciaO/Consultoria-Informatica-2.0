@@ -51,7 +51,9 @@ function iniciar(){
 
             $('#dialogoProyecto').load("formularios/formularioProyecto/proyecto.html", function()
                 {
-                    $.getScript("formularios/formularioProyecto/proyecto.js")
+                    $.get('formularios/formularioProyecto/cargaTareas.php',null,tratarCargarTareas,'json');
+                    $.get('formularios/formularioProyecto/cargaAnalistas.php',null,tratarCargarAnalistas,'json');
+                    $.getScript("formularios/formularioProyecto/proyecto.js");
                 }
             );
         } else {
@@ -60,6 +62,36 @@ function iniciar(){
         }
 
     });
+
+    function tratarCargarTareas(oArrayTareas,sStatus,oXHR){
+
+        $("#tareasProyecto").empty();
+
+        jQuery.each(oArrayTareas,function(i,elemento){
+
+            $('<option value="'+elemento.idTarea+'">' + elemento.nombreTarea + ' </option>').appendTo("#tareasProyecto");
+
+        });
+
+
+
+    }
+    function tratarCargarAnalistas(oArrayAnalistas,sStatus,oXHR){
+
+        $("#analistasProyecto").empty();
+
+        jQuery.each(oArrayAnalistas,function(i,elemento){
+
+            $('<option value="'+elemento.dniTrabajador+'">' + elemento.nombreTrabajador + ' </option>').appendTo("#analistasProyecto");
+
+        });
+
+
+
+    }
+
+
+
     $('#activarFormuTareas').click(function(){
 
         // ocultarFormularios();
@@ -73,7 +105,7 @@ function iniciar(){
             );
         } else {
             //SE ABRE SI ESTA CERRADO
-            $('#divFormProyecto').dialog("open");
+            $('#divFormTarea').dialog("open");
         }
 
     });

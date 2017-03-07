@@ -16,24 +16,40 @@
 
 
             <div class="form-group">
-                <label class="col-md-4 control-label" for="tareasProyecto">Tareas</label>
+                <label class="col-md-4 control-label" for="clienteProyecto">Cliente</label>
                 <div class="col-md-4">
-                    <select id="tareasProyecto" name="tareasProyecto" class="form-control" multiple="multiple">
+                    <select id="clienteProyecto" name="clienteProyecto" class="form-control">
 
                     </select>
                 </div>
             </div>
-
 
             <div class="form-group">
-                <label class="col-md-4 control-label" for="analistasProyecto">Analistas</label>
+                <label class="col-md-4 control-label" for="precioProyecto">Precio</label>
                 <div class="col-md-4">
-                    <select id="analistasProyecto" name="analistasProyecto" class="form-control"
-                            multiple="multiple">
-
-                    </select>
+                    <input type="number" name="precioProyecto" id="precioProyecto"  class="form-control input-md" step="0.01">
                 </div>
             </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="fechaIniProyecto">Fecha Inicial</label>
+                <div class="col-md-4">
+                    <input id="fechaIniProyecto" name="fechaIniProyecto" type="text" placeholder="Fecha inicial"
+                           class="form-control input-md">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="fechaFinProyecto">Fecha Inicial</label>
+                <div class="col-md-4">
+                    <input id="fechaFinProyecto" name="fechaFinProyecto" type="text" placeholder="Fecha inicial"
+                           class="form-control input-md">
+
+                </div>
+            </div>
+
+
 
         </fieldset>
     </form>

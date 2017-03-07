@@ -148,7 +148,7 @@ function validaFormNuevoTrabajador() {
 
     var bValido = true;
     var sErrores = "";
-
+    var parametrosTrabajador="";
     var nombre = document.getElementById('nombreTrabajador').value.trim();
     document.getElementById('nombreTrabajador').value = nombre;
 
@@ -258,6 +258,7 @@ function validaFormNuevoTrabajador() {
     if (bValido == false) {
         //Mostrar errores
         toastr.error(sErrores);
+
     } else {
 
         // var sMensaje = "";
@@ -284,11 +285,12 @@ function validaFormNuevoTrabajador() {
         //     tipoTrabajador: tipo
         // };
 
-        var parametrosTrabajador = "nombreTrabajador="+nombre+"&dniTrabajador="+dni+"&apellidoTrabajador="+apellido+
+         parametrosTrabajador = "nombreTrabajador="+nombre+"&dniTrabajador="+dni+"&apellidoTrabajador="+apellido+
                                    "&direccionTrabajador="+direccion+"&telefonoTrabajador="+parseInt(tlf)+
                                    "&tipoTrabajador="+tipo;
 
 
-        return parametrosTrabajador;
+
     }
+    return parametrosTrabajador;
 }

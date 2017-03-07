@@ -102,10 +102,46 @@ function iniciar(){
 
             $('#dialogoProyecto').load("formularios/formularioProyecto/proyecto.html", function()
                 {
-                    $.get('formularios/formularioProyecto/cargaTareas.php',null,tratarCargarTareas,'json');
-                    $.get('formularios/formularioProyecto/cargaAnalistas.php',null,tratarCargarAnalistas,'json');
+                    $.get('formularios/formularioProyecto/cargarClientes.php',null,tratarCargarClientes,'json');
                     $.getScript("formularios/formularioProyecto/proyecto.js");
-                }
+                   
+                            
+                            var dateFormat = "dd/mm/yy",
+                                from = $( "#fechaIniProyecto" )
+                                    .datepicker({
+                                        dateFormat: 'dd/mm/yy',
+                                        defaultDate: "+1w",
+                                        changeMonth: true,
+                                        changeYear: true,
+                                        minDate: ('-6D -2M -2Y')
+                                    })
+                                    .on( "change", function() {
+                                        to.datepicker( "option", "minDate", getDate( this ) );
+                                    }),
+                                to = $( "#fechaFinProyecto" ).datepicker({
+                                        dateFormat: 'dd/mm/yy',
+                                        defaultDate: "+1w",
+                                        changeMonth: true,
+                                        changeYear: true
+                                    })
+                                    .on( "change", function() {
+                                        from.datepicker( "option", "maxDate", getDate( this ) );
+                                    });
+
+                            function getDate( element ) {
+                                var date;
+                                try {
+                                    date = $.datepicker.parseDate( dateFormat, element.value );
+                                } catch( error ) {
+                                    date = null;
+                                }
+
+                                return date;
+                            }
+
+                        }
+                    
+                
             );
         } else {
             //SE ABRE SI ESTA CERRADO
@@ -114,13 +150,13 @@ function iniciar(){
 
     });
 
-    function tratarCargarTareas(oArrayTareas,sStatus,oXHR){
+    function tratarCargarClientes(oArrayTareas,sStatus,oXHR){
 
-        $("#tareasProyecto").empty();
+        $("#clienteProyecto").empty();
 
         jQuery.each(oArrayTareas,function(i,elemento){
 
-            $('<option value="'+elemento.idTarea+'">' + elemento.nombreTarea + ' </option>').appendTo("#tareasProyecto");
+            $('<option value="'+elemento.dniCliente+'">' + elemento.nombreCliente + ' '+elemento.apellidoCliente+' </option>').appendTo("#clienteProyecto");
 
         });
 
@@ -150,9 +186,10 @@ function iniciar(){
             $('#dialogoTarea').load("formularios/formularioTarea/tarea.html", function()
                 {
                     $.getScript("formularios/formularioTarea/tarea.js");
-                    var dateFormat = "mm/dd/yy",
+                    var dateFormat = "dd/mm/yy",
                         from = $( "#fechaIni" )
                             .datepicker({
+                                dateFormat: 'dd/mm/yy',
                                 defaultDate: "+1w",
                                 changeMonth: true,
                                 changeYear: true,
@@ -162,6 +199,7 @@ function iniciar(){
                                 to.datepicker( "option", "minDate", getDate( this ) );
                             }),
                         to = $( "#fechaFin" ).datepicker({
+                                dateFormat: 'dd/mm/yy',
                                 defaultDate: "+1w",
                                 changeMonth: true,
                                 changeYear: true
@@ -214,11 +252,12 @@ var oExRegNombre = /^[a-záéíóúñA-ZÑÁÉÍÓÚ]{3}([a-záéíóúñA-ZÑÁ
 var oExRegApellido = /^[a-záéíóúñA-ZÁÉÍÓÚ]{4}([a-záéíóúñA-ZÑÁÉÍÓÚ\s]){0,30}/; //Apellidos
 var oExRegDireccion = /^([a-záéíóúñA-ZÑÁÉÍÓÚ]{1})([a-záéíóúñA-ZÑÁÉÍÓÚ\s\d\.\,\º\ª\-\/]{0,39})$/; //Direccion
 var oExRegDni = /^[0-9]{8}[A-Z]{1}$/;
-var oExRegFechas = /^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/;  //Fechas: 2013-12-14
+//var oExRegFechas = /^([0][1-9]|[12][0-9]|3[01])(\/|-)([0][1-9]|[1][0-2])\2(\d{4})$/;  //Fechas: 01-01-2017
 var oExRegPrecio = /^([0-9]{1,10}[\,\.][0-9]{1,2})$/;  //Precio con dos decimales obligatorios.
 var oExRegAsunto = /^[a-záéíóúñA-ZÑÁÉÍÓÚ\s]{1,60}$/;  // Asunto
 
-
+var oExRegFechas = /^(?:(?:0?[1-9]|1\d|2[0-8])(\/|-)(?:0?[1-9]|1[0-2]))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(?:(?:31(\/|-)(?:0?[13578]|1[02]))|(?:(?:29|30)(\/|-)(?:0?[1,3-9]|1[0-2])))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(29(\/|-)0?2)(\/|-)(?:(?:0[48]00|[13579][26]00|[2468][048]00)|(?:\d\d)?(?:0[48]|[2468][048]|[13579][26]))$/;
+// validacion de fechas con años bisiestos incluidos del formato dd/mm/yy
 function validaNombre(cadena) {
     var resultado = false;
     if (cadena != "") {

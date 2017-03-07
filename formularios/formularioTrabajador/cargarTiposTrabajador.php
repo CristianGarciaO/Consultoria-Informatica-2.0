@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 $conn->set_charset("utf8");
 
 
-$sql = "SELECT DISTINCT tipoTrabajador FROM trabajador;";
+$sql = "SELECT * FROM tipo_trabajador;";
 
 $res = $conn->query($sql);
 

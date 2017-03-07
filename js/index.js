@@ -84,7 +84,7 @@ function iniciar(){
         $("#tipoTrabajador").empty();
 
         $(oArrayTipos).each(function(){
-            $('<option>').val(this.tipoTrabajador).text(this.tipoTrabajador).appendTo("#tipoTrabajador");
+            $('<option>').val(this.id).text(this.tipo).appendTo("#tipoTrabajador");
         });
 
     }
@@ -149,7 +149,38 @@ function iniciar(){
 
             $('#dialogoTarea').load("formularios/formularioTarea/tarea.html", function()
                 {
-                    $.getScript("formularios/formularioTarea/tarea.js")
+                    $.getScript("formularios/formularioTarea/tarea.js");
+                    var dateFormat = "mm/dd/yy",
+                        from = $( "#fechaIni" )
+                            .datepicker({
+                                defaultDate: "+1w",
+                                changeMonth: true,
+                                changeYear: true,
+                                minDate: ('-6D -2M -2Y')
+                            })
+                            .on( "change", function() {
+                                to.datepicker( "option", "minDate", getDate( this ) );
+                            }),
+                        to = $( "#fechaFin" ).datepicker({
+                                defaultDate: "+1w",
+                                changeMonth: true,
+                                changeYear: true
+                            })
+                            .on( "change", function() {
+                                from.datepicker( "option", "maxDate", getDate( this ) );
+                            });
+
+                    function getDate( element ) {
+                        var date;
+                        try {
+                            date = $.datepicker.parseDate( dateFormat, element.value );
+                        } catch( error ) {
+                            date = null;
+                        }
+
+                        return date;
+                    }
+
                 }
             );
         } else {

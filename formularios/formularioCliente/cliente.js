@@ -71,7 +71,7 @@ function gestionModificar(){
         var sURL = "formularios/formularioCliente/clienteModificar.php";
         var sParametros = "datos=" + JSON.stringify(oModificaCliente);
 
-        console.log(sParametros);
+
         peticionAjax(sURL,sParametros);
     }
 
@@ -149,9 +149,6 @@ function procesarRespuesta(){
 // NUEVO CLIENTE ******************************************************
 // ********************************************************************
 
-document.querySelector('#guardar_NueCli').addEventListener('click', validaFormNuevoCliente, false);
-
-document.querySelector('#limpiar_NueCli').addEventListener('click', nuevoCliente, false);
 
 function validaFormNuevoCliente() {
 

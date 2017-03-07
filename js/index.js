@@ -1,4 +1,11 @@
+
+var oAjax = null;
+
+localStorage['tipos']="null";
+
 $(document).ready(iniciar);
+
+
 function iniciar(){
 
     $("#mensajes").dialog(
@@ -25,6 +32,8 @@ function iniciar(){
 
     });
 
+    // ********** TRABAJADOR ******************************************************************************************
+
     $('#activarFormuTrabajador').click(function(){
 
       //ocultarFormularios();
@@ -32,17 +41,59 @@ function iniciar(){
         // SE VERIFICA SI EL FORMU ESTABA ANTES
         if( $('#divFormTrabajador').size() == 0 ){
 
-            $('#dialogoTrabajador').load("formularios/formularioTrabajador/trabajador.html", function()
-                {
-                    $.getScript("formularios/formularioTrabajador/trabajador.js")
-                }
-            );
+            $('#dialogoTrabajador').load("formularios/formularioTrabajador/trabajador.html", function() {
+                    $.getScript("formularios/formularioTrabajador/trabajador.js");
+            });
         } else {
             //SE ABRE SI ESTA CERRADO
             $('#divFormTrabajador').dialog("open");
         }
 
+        cargarTiposTrabajadores();
+
     });
+
+
+    //LOCALSTORAGE
+
+    function cargarTiposTrabajadores(){
+        var oArrayTipos = null;
+
+        // Existe en almacenamiento local
+        if(localStorage["tipos"] != "null"){
+            console.log(oArrayTipos);
+            oArrayTipos = JSON.parse(localStorage["tipos"]);
+
+            rellenaCombo(oArrayTipos);
+
+        } else {
+
+            $.get('formularios/formularioTrabajador/cargarTiposTrabajador.php',null,tratarCargarTipos,'json');
+        }
+    }
+
+    function tratarCargarTipos(oArrayTipos, sStatus, oXHR){
+
+        rellenaCombo(oArrayTipos);
+
+        // Guardar en localStorage
+        localStorage["tipos"] = JSON.stringify(oArrayTipos);
+    }
+
+    function rellenaCombo(oArrayTipos){
+        $("#tipoTrabajador").empty();
+
+        $(oArrayTipos).each(function(){
+            $('<option>').val(this.tipoTrabajador).text(this.tipoTrabajador).appendTo("#tipoTrabajador");
+        });
+
+    }
+
+
+
+
+    // *************** PROYECTOS ***************************************************************************
+
     $('#activarFormuProyectos').click(function(){
 
        // ocultarFormularios();
@@ -85,8 +136,6 @@ function iniciar(){
             $('<option value="'+elemento.dniTrabajador+'">' + elemento.nombreTrabajador + ' </option>').appendTo("#analistasProyecto");
 
         });
-
-
 
     }
 
@@ -202,3 +251,41 @@ function validaAsunto(cadena) {
     }
     return resultado;
 }
+
+
+//PETICION AJAX PARA LOCALSTORAGE
+
+
+function pedirAjax(url){
+    // Creamos un objeto XHR.
+    oAjax = objetoXHR();
+    oAjax.open("GET",url, true);
+    oAjax.addEventListener("readystatechange",procesarRespuesta,false);
+    oAjax.send(null);
+}
+
+
+function procesarRespuesta(){
+
+    if (this.readyState == 4 && this.status == 200) {
+        listado(JSON.parse(oAjax.responseText));
+    }
+}
+
+
+function objetoXHR() {
+    if (window.XMLHttpRequest) {
+        return new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        var versionesIE = new Array('Msxml2.XMLHTTP.5.0', 'Msxml2.XMLHTTP.4.0', 'Msxml2.XMLHTTP.3.0', 'Msxml2.XMLHTTP', 'Microsoft.XMLHTTP');
+        for (var i = 0; i < versionesIE.length; i++) {
+            try {
+                return new ActiveXObject(versionesIE[i]);
+            } catch (errorControlado) {} //Capturamos el error,
+        }
+    }
+    throw new Error("No se pudo crear el objeto XMLHttpRequest");
+}
+
+
+

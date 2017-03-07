@@ -271,201 +271,201 @@ Consultoria.prototype.listarContratos = function (){
 
 
 
-//---------------------------------------------------------
-
-// CLIENTE
-
-function Cliente(sNombreCliente, sDniCliente, sApellidosCliente, sDireccionCliente, iTelefonoCliente, aContratosCliente) {
-    this.nombreCliente = sNombreCliente;
-    this.dniCliente = sDniCliente;
-    this.apellidosCliente = sApellidosCliente;
-    this.direccionCliente = sDireccionCliente;
-    this.telefonoCliente = iTelefonoCliente;
-    this.contratosCliente = aContratosCliente;    //Lista de contratos que puede tener el cliente
-    // (nombres de los contratos,que son los nombres de los proyectos asociados);
-}
-
-// Metodos Cliente
-// ***************
-
-Consultoria.prototype.anadeCliente = function (oCliente) {
-    this.clientes.push(oCliente);
-    var sMensaje = "Guardado";
-    return sMensaje;
-};
-
-Consultoria.prototype.dameCliente = function (dniCli) {
-    var bEnc = false;
-    var oCliente;
-    var i = 0;
-    while (i < this.clientes.length && bEnc == false) {
-        if (this.clientes[i].dniCliente == dniCli) {
-            oCliente = this.clientes[i];
-            bEnc = true;
-        }
-        i++;
-    }
-    return oCliente;
-};
-
-
-Consultoria.prototype.listarClientes = function (){
-
-    var oInfo = new Array();
-    var oCabecera = ["Nombre", "DNI", "Apellidos", "Dirección", "Teléfono", "Contratos"];
-
-
-        for(var i=0;i<this.clientes.length; i++){
-            //Meter un array en otro para hacerlo bidimensional
-            oInfo[i] = new Array();
-            //Cargar los datos
-            oInfo[i][0] = this.clientes[i].nombreCliente;
-            oInfo[i][1] = this.clientes[i].dniCliente;
-            oInfo[i][2] = this.clientes[i].apellidosCliente;
-            oInfo[i][3] = this.clientes[i].direccionCliente;
-            oInfo[i][4] = this.clientes[i].telefonoCliente;
-            oInfo[i][5] = new Array();
-
-            var listaContratos = this.clientes[i].contratosCliente;
-
-            if(listaContratos.length == 0){
-                oInfo[i][5].push("- Sin contratos -");
-            }else{
-                for(var j=0;j<listaContratos.length; j++){
-                    oInfo[i][5].push(listaContratos[j]);
-                }
-            }
-        }
-
-    var arraylistar = [];
-    arraylistar[0] = oCabecera;
-    arraylistar[1] = oInfo;
-    return arraylistar;
-
-};
-
-
-//---------------------------------------------------------
-
-// PUBLICIDAD
-
-function Publicidad(codigoPublicidad, tipoPublicidad, descripcionPublicidad, codigoAdministrador, dniCliente) {
-    this.codigoPublicidad = codigoPublicidad;
-    this.tipo = tipoPublicidad;
-    this.descripcionPublicidad = descripcionPublicidad;
-    this.codigoAdministrador = codigoAdministrador;          //Codigo del administrador que ha realizado la publicidad
-    this.dniCliente = dniCliente;                            //Dni del cliente para el que se ha realizado esta publicidad
-}
-
-
-// Metodos Publicidad
-// ******************
-
-Consultoria.prototype.anadePublicidad = function (oPublicidad) {
-    this.publicidades.push(oPublicidad);
-    var sMensaje = "Guardado";
-    return sMensaje;
-};
-
-
-Consultoria.prototype.eliminaPublicidad = function (oPublicidad) {
-
-    function eliminaEstaPubli(array, publi) {
-        var i = array.indexOf(publi);
-
-        if (i !== -1) {
-            array.splice(i, 1);
-        }
-    }
-
-    var array = this.publicidades;
-    eliminaEstaPubli(array, oPublicidad);
-
-    var sMensaje = "Eliminada";
-    return sMensaje;
-};
-
-
-Consultoria.prototype.damePublicidad = function (codPubli) {
-
-    var bEnc = false;
-    var oPubli;
-    var i = 0;
-
-    for (var i = 0; i < this.publicidades.length && bEnc == false; i++) {
-
-        if (this.publicidades[i].codigoPublicidad == codPubli) {
-            oPubli = this.publicidades[i];
-            bEnc = true;
-        }
-    }
-    return oPubli;
-};
-
-
-Consultoria.prototype.listarPublicidad = function (cadenaIdentificadora){
-
-    var oInfo = new Array();
-    var oCabecera = ["Código", "Tipo", "Descripción", "Código Admin", "DNI Cliente"];
-
-    if(cadenaIdentificadora != null){
-        if(cadenaIdentificadora.length == 9){
-            //CLIENTES
-            var arrayProvisional = new Array();
-            for(var i=0;i<this.publicidades.length; i++) {
-                if (this.publicidades[i].dniCliente == cadenaIdentificadora) {
-                    arrayProvisional.push(this.publicidades[i]);
-                }
-            }
-            for(var i=0;i<arrayProvisional.length; i++){
-                    //Meter un array en otro para hacerlo bidimensional
-                    oInfo[i] = new Array();
-                    //Cargar los datos
-                    oInfo[i][0] = arrayProvisional[i].codigoPublicidad;
-                    oInfo[i][1] = arrayProvisional[i].tipo;
-                    oInfo[i][2] = arrayProvisional[i].descripcionPublicidad;
-                    oInfo[i][3] = arrayProvisional[i].codigoAdministrador;
-                    oInfo[i][4] = arrayProvisional[i].dniCliente;
-            }
-        }else{
-            //ADMINISTRADORES
-            var arrayProvisional = new Array();
-            for(var i=0;i<this.publicidades.length; i++) {
-                if (this.publicidades[i].codigoAdministrador == cadenaIdentificadora) {
-                    arrayProvisional.push(this.publicidades[i]);
-                }
-            }
-            for(var i=0;i<arrayProvisional.length; i++){
-                //Meter un array en otro para hacerlo bidimensional
-                oInfo[i] = new Array();
-                //Cargar los datos
-                oInfo[i][0] = arrayProvisional[i].codigoPublicidad;
-                oInfo[i][1] = arrayProvisional[i].tipo;
-                oInfo[i][2] = arrayProvisional[i].descripcionPublicidad;
-                oInfo[i][3] = arrayProvisional[i].codigoAdministrador;
-                oInfo[i][4] = arrayProvisional[i].dniCliente;
-            }
-        }
-    }else{
-        //TODOS
-        for(var i=0;i<this.publicidades.length; i++){
-            //Meter un array en otro para hacerlo bidimensional
-            oInfo[i] = new Array();
-            //Cargar los datos
-            oInfo[i][0] = this.publicidades[i].codigoPublicidad;
-            oInfo[i][1] = this.publicidades[i].tipo;
-            oInfo[i][2] = this.publicidades[i].descripcionPublicidad;
-            oInfo[i][3] = this.publicidades[i].codigoAdministrador;
-            oInfo[i][4] = this.publicidades[i].dniCliente;
-        }
-    }
-
-    var arraylistar = [];
-    arraylistar[0] = oCabecera;
-    arraylistar[1] = oInfo;
-    return arraylistar;
-
-};
+// //---------------------------------------------------------
+//
+// // CLIENTE
+//
+// function Cliente(sNombreCliente, sDniCliente, sApellidosCliente, sDireccionCliente, iTelefonoCliente, aContratosCliente) {
+//     this.nombreCliente = sNombreCliente;
+//     this.dniCliente = sDniCliente;
+//     this.apellidosCliente = sApellidosCliente;
+//     this.direccionCliente = sDireccionCliente;
+//     this.telefonoCliente = iTelefonoCliente;
+//     this.contratosCliente = aContratosCliente;    //Lista de contratos que puede tener el cliente
+//     // (nombres de los contratos,que son los nombres de los proyectos asociados);
+// }
+//
+// // Metodos Cliente
+// // ***************
+//
+// Consultoria.prototype.anadeCliente = function (oCliente) {
+//     this.clientes.push(oCliente);
+//     var sMensaje = "Guardado";
+//     return sMensaje;
+// };
+//
+// Consultoria.prototype.dameCliente = function (dniCli) {
+//     var bEnc = false;
+//     var oCliente;
+//     var i = 0;
+//     while (i < this.clientes.length && bEnc == false) {
+//         if (this.clientes[i].dniCliente == dniCli) {
+//             oCliente = this.clientes[i];
+//             bEnc = true;
+//         }
+//         i++;
+//     }
+//     return oCliente;
+// };
+//
+//
+// Consultoria.prototype.listarClientes = function (){
+//
+//     var oInfo = new Array();
+//     var oCabecera = ["Nombre", "DNI", "Apellidos", "Dirección", "Teléfono", "Contratos"];
+//
+//
+//         for(var i=0;i<this.clientes.length; i++){
+//             //Meter un array en otro para hacerlo bidimensional
+//             oInfo[i] = new Array();
+//             //Cargar los datos
+//             oInfo[i][0] = this.clientes[i].nombreCliente;
+//             oInfo[i][1] = this.clientes[i].dniCliente;
+//             oInfo[i][2] = this.clientes[i].apellidosCliente;
+//             oInfo[i][3] = this.clientes[i].direccionCliente;
+//             oInfo[i][4] = this.clientes[i].telefonoCliente;
+//             oInfo[i][5] = new Array();
+//
+//             var listaContratos = this.clientes[i].contratosCliente;
+//
+//             if(listaContratos.length == 0){
+//                 oInfo[i][5].push("- Sin contratos -");
+//             }else{
+//                 for(var j=0;j<listaContratos.length; j++){
+//                     oInfo[i][5].push(listaContratos[j]);
+//                 }
+//             }
+//         }
+//
+//     var arraylistar = [];
+//     arraylistar[0] = oCabecera;
+//     arraylistar[1] = oInfo;
+//     return arraylistar;
+//
+// };
+//
+//
+// //---------------------------------------------------------
+//
+// // PUBLICIDAD
+//
+// function Publicidad(codigoPublicidad, tipoPublicidad, descripcionPublicidad, codigoAdministrador, dniCliente) {
+//     this.codigoPublicidad = codigoPublicidad;
+//     this.tipo = tipoPublicidad;
+//     this.descripcionPublicidad = descripcionPublicidad;
+//     this.codigoAdministrador = codigoAdministrador;          //Codigo del administrador que ha realizado la publicidad
+//     this.dniCliente = dniCliente;                            //Dni del cliente para el que se ha realizado esta publicidad
+// }
+//
+//
+// // Metodos Publicidad
+// // ******************
+//
+// Consultoria.prototype.anadePublicidad = function (oPublicidad) {
+//     this.publicidades.push(oPublicidad);
+//     var sMensaje = "Guardado";
+//     return sMensaje;
+// };
+//
+//
+// Consultoria.prototype.eliminaPublicidad = function (oPublicidad) {
+//
+//     function eliminaEstaPubli(array, publi) {
+//         var i = array.indexOf(publi);
+//
+//         if (i !== -1) {
+//             array.splice(i, 1);
+//         }
+//     }
+//
+//     var array = this.publicidades;
+//     eliminaEstaPubli(array, oPublicidad);
+//
+//     var sMensaje = "Eliminada";
+//     return sMensaje;
+// };
+//
+//
+// Consultoria.prototype.damePublicidad = function (codPubli) {
+//
+//     var bEnc = false;
+//     var oPubli;
+//     var i = 0;
+//
+//     for (var i = 0; i < this.publicidades.length && bEnc == false; i++) {
+//
+//         if (this.publicidades[i].codigoPublicidad == codPubli) {
+//             oPubli = this.publicidades[i];
+//             bEnc = true;
+//         }
+//     }
+//     return oPubli;
+// };
+//
+//
+// Consultoria.prototype.listarPublicidad = function (cadenaIdentificadora){
+//
+//     var oInfo = new Array();
+//     var oCabecera = ["Código", "Tipo", "Descripción", "Código Admin", "DNI Cliente"];
+//
+//     if(cadenaIdentificadora != null){
+//         if(cadenaIdentificadora.length == 9){
+//             //CLIENTES
+//             var arrayProvisional = new Array();
+//             for(var i=0;i<this.publicidades.length; i++) {
+//                 if (this.publicidades[i].dniCliente == cadenaIdentificadora) {
+//                     arrayProvisional.push(this.publicidades[i]);
+//                 }
+//             }
+//             for(var i=0;i<arrayProvisional.length; i++){
+//                     //Meter un array en otro para hacerlo bidimensional
+//                     oInfo[i] = new Array();
+//                     //Cargar los datos
+//                     oInfo[i][0] = arrayProvisional[i].codigoPublicidad;
+//                     oInfo[i][1] = arrayProvisional[i].tipo;
+//                     oInfo[i][2] = arrayProvisional[i].descripcionPublicidad;
+//                     oInfo[i][3] = arrayProvisional[i].codigoAdministrador;
+//                     oInfo[i][4] = arrayProvisional[i].dniCliente;
+//             }
+//         }else{
+//             //ADMINISTRADORES
+//             var arrayProvisional = new Array();
+//             for(var i=0;i<this.publicidades.length; i++) {
+//                 if (this.publicidades[i].codigoAdministrador == cadenaIdentificadora) {
+//                     arrayProvisional.push(this.publicidades[i]);
+//                 }
+//             }
+//             for(var i=0;i<arrayProvisional.length; i++){
+//                 //Meter un array en otro para hacerlo bidimensional
+//                 oInfo[i] = new Array();
+//                 //Cargar los datos
+//                 oInfo[i][0] = arrayProvisional[i].codigoPublicidad;
+//                 oInfo[i][1] = arrayProvisional[i].tipo;
+//                 oInfo[i][2] = arrayProvisional[i].descripcionPublicidad;
+//                 oInfo[i][3] = arrayProvisional[i].codigoAdministrador;
+//                 oInfo[i][4] = arrayProvisional[i].dniCliente;
+//             }
+//         }
+//     }else{
+//         //TODOS
+//         for(var i=0;i<this.publicidades.length; i++){
+//             //Meter un array en otro para hacerlo bidimensional
+//             oInfo[i] = new Array();
+//             //Cargar los datos
+//             oInfo[i][0] = this.publicidades[i].codigoPublicidad;
+//             oInfo[i][1] = this.publicidades[i].tipo;
+//             oInfo[i][2] = this.publicidades[i].descripcionPublicidad;
+//             oInfo[i][3] = this.publicidades[i].codigoAdministrador;
+//             oInfo[i][4] = this.publicidades[i].dniCliente;
+//         }
+//     }
+//
+//     var arraylistar = [];
+//     arraylistar[0] = oCabecera;
+//     arraylistar[1] = oInfo;
+//     return arraylistar;
+//
+// };
 
 //---------------------------------------------------------
 // ADMINISTRADOR
@@ -533,97 +533,97 @@ Consultoria.prototype.listarAdministradores = function(){
 //---------------------------------------------------------
 
 // INCIDENCIA
-
-function Incidencia(iNumeroIncidencia, sPrioridadIncidencia, sAsuntoIncidencia, sDescripcionIncidencia, iCodAdmin, sEstado) {
-    this.numeroIncidencia = iNumeroIncidencia;
-    this.prioridadIncidencia = sPrioridadIncidencia;
-    this.asuntoIncidencia = sAsuntoIncidencia;
-    this.descripcionIncidencia = sDescripcionIncidencia;
-    this.codAdmin = iCodAdmin;                //Codigo del administrador que la abre;
-    this.estadoIncidencia = sEstado;
-}
-
-
-// Metodos Incidencia
-// ******************
-
-Consultoria.prototype.anadeIncidencia = function (oIncidencia) {
-    this.incidencias.push(oIncidencia);
-    var sMensaje = "Guardado";
-    return sMensaje;
-};
-
-Consultoria.prototype.dameIncidencia = function (codigoIncidencia) {
-    var bEnc = false;
-    var oIncidencia;
-    var i = 0;
-    while (i < this.incidencias.length && bEnc == false) {
-        if (this.incidencias[i].numeroIncidencia == codigoIncidencia) {
-            oIncidencia = this.incidencias[i];
-            bEnc = true;
-        }
-        i++;
-    }
-    return oIncidencia;
-};
-
-Consultoria.prototype.incidenciasDeEsteAdmin = function (iCodAdmin, tipoOrdenacion) {
-    /*Devuelve listado de las incidencias ordenado por numero de incidencia (segundo paramentro)
-     del administrador que se le pasa como primer parametro*/
-
-    var listaIncidencias = [];
-    for (var i = 0; i < this.incidencias.length; i++) {
-        if (this.incidencias[i].codAdmin == iCodAdmin) {
-            listaIncidencias.push(this.incidencias[i]);
-        }
-    }
-    listaIncidencias.ordenaArrayInteger('numeroIncidencia', tipoOrdenacion);
-    return listaIncidencias;
-};
-
-Consultoria.prototype.listarIncidencias = function(filtro){
-
-    var oInfo = new Array();
-    var oCabecera = ["Nº Incidencia", "Prioridad", "Asunto", "Descripción", "Código Admin", "Estado"];
-
-    if(filtro == "Todas"){
-
-        for(var i=0;i<this.incidencias.length; i++){
-            //Meter un array en otro para hacerlo bidimensional
-            oInfo[i] = new Array();
-            //Cargar los datos
-            oInfo[i][0] = this.incidencias[i].numeroIncidencia;
-            oInfo[i][1] = this.incidencias[i].prioridadIncidencia;
-            oInfo[i][2] = this.incidencias[i].asuntoIncidencia;
-            oInfo[i][3] = this.incidencias[i].descripcionIncidencia;
-            oInfo[i][4] = this.incidencias[i].codAdmin;
-            oInfo[i][5] = this.incidencias[i].estadoIncidencia;
-        }
-
-    }else{ //Solo sin cerrar
-
-        for(var j=0; j<this.incidencias.length; j++){
-            if(this.incidencias[j].estadoIncidencia == "Abierta"){
-                //Meter un array en otro para hacerlo bidimensional
-                oInfo[j] = new Array();
-                //Cargar los datos
-                oInfo[j][0] = this.incidencias[j].numeroIncidencia;
-                oInfo[j][1] = this.incidencias[j].prioridadIncidencia;
-                oInfo[j][2] = this.incidencias[j].asuntoIncidencia;
-                oInfo[j][3] = this.incidencias[j].descripcionIncidencia;
-                oInfo[j][4] = this.incidencias[j].codAdmin;
-                oInfo[j][5] = this.incidencias[j].estadoIncidencia;
-            }
-        }
-
-
-    }
-
-    var arraylistar = [];
-    arraylistar[0] = oCabecera;
-    arraylistar[1] = oInfo;
-    return arraylistar;
-}
+//
+// function Incidencia(iNumeroIncidencia, sPrioridadIncidencia, sAsuntoIncidencia, sDescripcionIncidencia, iCodAdmin, sEstado) {
+//     this.numeroIncidencia = iNumeroIncidencia;
+//     this.prioridadIncidencia = sPrioridadIncidencia;
+//     this.asuntoIncidencia = sAsuntoIncidencia;
+//     this.descripcionIncidencia = sDescripcionIncidencia;
+//     this.codAdmin = iCodAdmin;                //Codigo del administrador que la abre;
+//     this.estadoIncidencia = sEstado;
+// }
+//
+//
+// // Metodos Incidencia
+// // ******************
+//
+// Consultoria.prototype.anadeIncidencia = function (oIncidencia) {
+//     this.incidencias.push(oIncidencia);
+//     var sMensaje = "Guardado";
+//     return sMensaje;
+// };
+//
+// Consultoria.prototype.dameIncidencia = function (codigoIncidencia) {
+//     var bEnc = false;
+//     var oIncidencia;
+//     var i = 0;
+//     while (i < this.incidencias.length && bEnc == false) {
+//         if (this.incidencias[i].numeroIncidencia == codigoIncidencia) {
+//             oIncidencia = this.incidencias[i];
+//             bEnc = true;
+//         }
+//         i++;
+//     }
+//     return oIncidencia;
+// };
+//
+// Consultoria.prototype.incidenciasDeEsteAdmin = function (iCodAdmin, tipoOrdenacion) {
+//     /*Devuelve listado de las incidencias ordenado por numero de incidencia (segundo paramentro)
+//      del administrador que se le pasa como primer parametro*/
+//
+//     var listaIncidencias = [];
+//     for (var i = 0; i < this.incidencias.length; i++) {
+//         if (this.incidencias[i].codAdmin == iCodAdmin) {
+//             listaIncidencias.push(this.incidencias[i]);
+//         }
+//     }
+//     listaIncidencias.ordenaArrayInteger('numeroIncidencia', tipoOrdenacion);
+//     return listaIncidencias;
+// };
+//
+// Consultoria.prototype.listarIncidencias = function(filtro){
+//
+//     var oInfo = new Array();
+//     var oCabecera = ["Nº Incidencia", "Prioridad", "Asunto", "Descripción", "Código Admin", "Estado"];
+//
+//     if(filtro == "Todas"){
+//
+//         for(var i=0;i<this.incidencias.length; i++){
+//             //Meter un array en otro para hacerlo bidimensional
+//             oInfo[i] = new Array();
+//             //Cargar los datos
+//             oInfo[i][0] = this.incidencias[i].numeroIncidencia;
+//             oInfo[i][1] = this.incidencias[i].prioridadIncidencia;
+//             oInfo[i][2] = this.incidencias[i].asuntoIncidencia;
+//             oInfo[i][3] = this.incidencias[i].descripcionIncidencia;
+//             oInfo[i][4] = this.incidencias[i].codAdmin;
+//             oInfo[i][5] = this.incidencias[i].estadoIncidencia;
+//         }
+//
+//     }else{ //Solo sin cerrar
+//
+//         for(var j=0; j<this.incidencias.length; j++){
+//             if(this.incidencias[j].estadoIncidencia == "Abierta"){
+//                 //Meter un array en otro para hacerlo bidimensional
+//                 oInfo[j] = new Array();
+//                 //Cargar los datos
+//                 oInfo[j][0] = this.incidencias[j].numeroIncidencia;
+//                 oInfo[j][1] = this.incidencias[j].prioridadIncidencia;
+//                 oInfo[j][2] = this.incidencias[j].asuntoIncidencia;
+//                 oInfo[j][3] = this.incidencias[j].descripcionIncidencia;
+//                 oInfo[j][4] = this.incidencias[j].codAdmin;
+//                 oInfo[j][5] = this.incidencias[j].estadoIncidencia;
+//             }
+//         }
+//
+//
+//     }
+//
+//     var arraylistar = [];
+//     arraylistar[0] = oCabecera;
+//     arraylistar[1] = oInfo;
+//     return arraylistar;
+// }
 
 
 //---------------------------------------------------------
@@ -640,13 +640,14 @@ Consultoria.prototype.listarIncidencias = function(filtro){
 
 /******************************NUEVO PROYECTO****************************************/
 
-function Proyecto(iIdProyecto, sNombreProyecto, iPrecio, fechaInicio, fechaFin, sDniCliente) {
+function Proyecto(iIdProyecto, sNombreProyecto, sDniCliente, iPrecio, fechaInicio, fechaFin) {
     this.idProyecto = iIdProyecto;
     this.nombreProyecto = sNombreProyecto;
+    this.idCliente = sDniCliente;
     this.precio = iPrecio;
     this.fechaInicioProyecto = fechaInicio;
     this.fechaFinProyecto = fechaFin;
-    this.idCliente = sDniCliente;
+
 
 }
 

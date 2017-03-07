@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-02-2017 a las 10:24:00
+-- Tiempo de generación: 02-03-2017 a las 16:46:58
 -- Versión del servidor: 5.5.39
 -- Versión de PHP: 5.4.31
 
@@ -114,6 +114,26 @@ INSERT INTO `tipo_tarea` (`idTarea`, `nombreTarea`, `descripcionTarea`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tipo_trabajador`
+--
+
+CREATE TABLE IF NOT EXISTS `tipo_trabajador` (
+  `id` int(11) NOT NULL,
+  `tipo` varchar(22) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tipo_trabajador`
+--
+
+INSERT INTO `tipo_trabajador` (`id`, `tipo`) VALUES
+(1, 'Analista'),
+(2, 'Programador'),
+(3, 'Administrador');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `trabajador`
 --
 
@@ -123,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `trabajador` (
   `apellidoTrabajador` varchar(30) NOT NULL,
   `direccionTrabajador` varchar(40) NOT NULL,
   `telefonoTrabajador` int(9) NOT NULL,
-  `tipoTrabajador` varchar(20) NOT NULL
+  `tipoTrabajador` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -131,10 +151,11 @@ CREATE TABLE IF NOT EXISTS `trabajador` (
 --
 
 INSERT INTO `trabajador` (`nombreTrabajador`, `dniTrabajador`, `apellidoTrabajador`, `direccionTrabajador`, `telefonoTrabajador`, `tipoTrabajador`) VALUES
-('Cristian', '34567843C', 'Ocaña', 'Pasaje Rich', 678945643, 'Programador'),
-('Alejandro', '67453469V', 'Garcia', 'Avenida el Capo', 654367896, 'Administrador'),
-('Francisco', '65553464Z', 'Armesto', 'Avenida de la Paz', 655366666, 'Analista'),
-('Lucas', '95153464X', 'Lopez', 'Calle de Esperanza', 659367899, 'Analista');
+('Cristian', '34567843C', 'Ocaña', 'Pasaje Rich', 678945643, 2),
+('Francisco', '65553464Z', 'Armesto', 'Avenida de la Paz', 655366666, 1),
+('Alejandro', '67453469V', 'Garcia', 'Avenida el Capo', 654367896, 3),
+('Lucas', '95153464X', 'Lopez', 'Calle de Esperanza', 659367899, 1);
+
 --
 -- Índices para tablas volcadas
 --
@@ -162,6 +183,12 @@ ALTER TABLE `tarea`
 --
 ALTER TABLE `tipo_tarea`
  ADD PRIMARY KEY (`idTarea`);
+
+--
+-- Indices de la tabla `tipo_trabajador`
+--
+ALTER TABLE `tipo_trabajador`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `trabajador`

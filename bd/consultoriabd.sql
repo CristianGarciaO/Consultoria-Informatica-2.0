@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-03-2017 a las 16:46:58
+-- Tiempo de generación: 07-03-2017 a las 23:28:21
 -- Versión del servidor: 5.5.39
 -- Versión de PHP: 5.4.31
 
@@ -19,9 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `consultoriabd`
 --
-DROP DATABASE IF EXISTS consultoriabd;
-CREATE DATABASE consultoriabd;
-USE consultoriabd;
+
 -- --------------------------------------------------------
 
 --
@@ -51,13 +49,13 @@ INSERT INTO `cliente` (`nombreCliente`, `apellidoCliente`, `dniCliente`, `telefo
 --
 
 CREATE TABLE IF NOT EXISTS `proyecto` (
-  `idProyecto` int(5) NOT NULL,
+`idProyecto` int(5) NOT NULL,
   `nombreProyecto` varchar(30) NOT NULL,
   `idCliente` varchar(9) NOT NULL,
   `precio` double(10,2) NOT NULL,
   `fechaIniProyecto` date NOT NULL,
   `fechaFinProyecto` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1302 ;
 
 --
 -- Volcado de datos para la tabla `proyecto`
@@ -196,6 +194,15 @@ ALTER TABLE `tipo_trabajador`
 ALTER TABLE `trabajador`
  ADD PRIMARY KEY (`dniTrabajador`);
 
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `proyecto`
+--
+ALTER TABLE `proyecto`
+MODIFY `idProyecto` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1302;
 --
 -- Restricciones para tablas volcadas
 --

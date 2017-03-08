@@ -34,119 +34,124 @@ $("#divFormTarea").dialog({
 
 function procesarTarea() {
 
+    if(validaFormTarea()){
+        var sIdProyecto=$("#idProyectoSelect").val();
+        var sIdTipoTarea = $("#tiposTareas").val();
+        var sIdTrabajador=$("#idTrabajadores").val();
+        var dFechaInicio=$("#fechaIniProyecto").val();
+        var dFechaFin=$("#fechaFinProyecto").val();
+        var sEstado=$("input:radio[name=radioEstado]:checked").val();
+
+        var oTarea={
+            idProyecto:sIdProyecto,
+            idTipoTarea:sIdTipoTarea,
+            idTrabajador:sIdTrabajador,
+            fechaIniTarea:dFechaInicio,
+            fechaFinTarea:dFechaFin,
+            estado:sEstado
+        };
+
+        var jTarea=JSON.stringify(oTarea);
+
+        $.ajax({ url : "formularios/formularioTarea/guardarTarea.php",
+            data:{datos:jTarea},
+            async: true, // Valor por defecto
+            dataType :'html',
+            method: "POST",
+            cache: false, // ya por defecto es false para POST
+            success: procesarRespuestaGuardarTarea,
+            error :procesaErrorGuardarTarea
+        });
+    }
+
 }
 
-function validaFormCrearTarea() {
+function procesarRespuestaGuardarTarea(oArrayRespuesta, sStatus, oXHR){
+    $("#mensajes").dialog("open");
+
+    if (oArrayRespuesta[0] == true){
+        $("#mensajes").dialog("option","title","Error");
+        $("#pMensajes").text(oArrayRespuesta[1]);
+    } else {
+        $('#divFormTarea').dialog("close");
+        $("#mensajes").dialog("option","title","OK");
+        $("#pMensajes").text(oArrayRespuesta[1]);
+    }
+
+}
+
+
+function procesaErrorGuardarTarea(oArrayRespuesta, sStatus, sError){
+    $("#mensajes").dialog("open");
+    $("#mensajes").dialog("option","title",sStatus);
+    $("#pMensajes").text(sError);
+    // $("#pMensajes").text(oArrayRespuesta[1]);
+
+}
+
+
+// **************************************************************************************
+// VALIDACIONES *************************************************************************
+// **************************************************************************************
+
+
+// NUEVO TAREA ******************************************************
+// ***********************************************************************
+
+
+
+
+function validaFormTarea() {
 
 
     var bValido = true;
     var sErrores = "";
-    var codTarea = document.querySelector('#nTareaCodigo').value;
+    var datosCorrectos = false;
+    //ID TAREA CON AUTOINCREMENTO
+    // var codTarea = document.querySelector('#nTareaCodigo').value;
 
-    if (codTarea == "") {
+
+    //FECHA INICIO TAREA
+    var fechaIniTarea = document.getElementById('fechaIniTarea').value.trim();
+    document.getElementById('fechaIniTarea').value = fechaIniTarea;
+
+    if (validaFechas(fechaIniTarea) == false) {
+
 
         if (bValido == true) {
             bValido = false;
             //Este campo obtiene el foco
-            document.getElementById('formuNuevaTarea').nTareaCodigo.focus();
+            document.getElementById('formuTarea').fechaIniTarea.focus();
         }
-        sErrores += "<br><br>¡ Genere un código de forma aleatoria !";
+        sErrores += "Fecha Inicial de la tarea incorrecta (formato: 01/01/2017)";
 
         //Marcar error
-        document.getElementById('formuNuevaTarea').fechaIni.className = "form-control input-md error";
-
-
-    }
-    else {
-        //Desmarcar error
-        document.getElementById('formuNuevaTarea').fechaIni.className = "form-control input-md";  //Pone esta class a la etiqueta.
-
-    }
-
-
-    var nombre = document.getElementById('nombreTarea').value.trim();
-    document.getElementById('nombreTarea').value = nombre;
-
-    if (validaNombre(nombre) == false) {
-
-        if (bValido == true) {
-            bValido = false;
-            //Este campo obtiene el foco
-            document.getElementById('formuNuevaTarea').nombreTarea.focus();
-        }
-        sErrores += "NOMBRE de la Tarea incorrecta (formato: Máx 30 caracteres)";
-
-        //Marcar error
-        document.getElementById('formuNuevaTarea').nombreTarea.className = "form-control input-md error";
+        document.getElementById('formuTarea').fechaIniTarea.className = "form-control input-md error";
 
     } else {
         //Desmarcar error
-        document.getElementById('formuNuevaTarea').nombreTarea.className = "form-control input-md";  //Pone esta class a la etiqueta.
+        document.getElementById('formuTarea').fechaIniTarea.className = "form-control input-md";  //Pone esta class a la etiqueta.
     }
 
-    if (document.querySelector('#nombreProyectoSelect').selectedIndex == 0) {
+    var fechaFinTarea = document.getElementById('fechaFinTarea').value.trim();
+    document.getElementById('fechaFinTarea').value = fechaFinTarea;
+
+    if (validaFechas(fechaFinTarea) == false) {
+alert(bValido);
         if (bValido == true) {
             bValido = false;
             //Este campo obtiene el foco
-            document.querySelector('#nombreProyectoSelect').focus();
+            document.getElementById('formuTarea').fechaFinTarea.focus();
         }
-        sErrores += "<br><br> Proyecto no seleccionado. Debe seleccionar uno)";
+        sErrores += "Fecha Final de la tarea incorrecta (formato: 01/01/2017)";
 
         //Marcar error
-        document.querySelector('#nombreProyectoSelect').className = "form-control input-large error";
+        document.getElementById('formuTarea').fechaFinTarea.className = "form-control input-md error";
 
     } else {
         //Desmarcar error
-        document.querySelector('#nombreProyectoSelect').className = "form-control input-large";  //Pone esta class a la etiqueta.
-        var nombreProyecto = document.getElementById('nombreProyectoSelect').value;
-        var proyecto = oConsultoria.dameProyecto(nombreProyecto);
-
+        document.getElementById('formuTarea').fechaFinTarea.className = "form-control input-md";  //Pone esta class a la etiqueta.
     }
-
-
-
-    var fechaInicio = document.getElementById('fechaIni').value.trim();
-    document.getElementById('fechaIni').value = fechaInicio;
-
-
-    if (validaFechas(fechaInicio) == false) {
-
-        if (bValido == true) {
-            bValido = false;
-            //Este campo obtiene el foco
-            document.getElementById('formuNuevaTarea').fechaIni.focus();
-        }
-        sErrores += "<br><br> FECHA INICIO de la Tarea incorrecto (formato: 2015-05-01)";
-
-        //Marcar error
-        document.getElementById('formuNuevaTarea').fechaIni.className = "form-control input-md error";
-
-    } else {
-        //Desmarcar error
-        document.getElementById('formuNuevaTarea').fechaIni.className = "form-control input-md";  //Pone esta class a la etiqueta.
-    }
-
-    var fechaFin = document.getElementById('fechaFin').value.trim();
-    document.getElementById('fechaFin').value = fechaFin;
-
-    if (validaFechas(fechaFin) == false) {
-
-        if (bValido == true) {
-            bValido = false;
-            //Este campo obtiene el foco
-            document.getElementById('formuNuevaTarea').fechaFin.focus();
-        }
-        sErrores += "<br><br> FECHA FIN de la Tarea incorrecto (formato: 2015-05-01)";
-
-        //Marcar error
-        document.getElementById('formuNuevaTarea').fechaFin.className = "form-control input-md error";
-
-    } else {
-        //Desmarcar error
-        document.getElementById('formuNuevaTarea').fechaFin.className = "form-control input-md";  //Pone esta class a la etiqueta.
-    }
-
-
 
 
 
@@ -154,49 +159,9 @@ function validaFormCrearTarea() {
         //Mostrar errores
         toastr.error(sErrores);
     } else {
-        //Aqui estan los datos correctos, los guardamos
-        //Recoger datos del formulario
-
-
-        //Comprobar que fecha fin es posterior a fecha inicio
-        var fI = new Date(fechaInicio);
-        var fF = new Date(fechaFin);
-
-        if (fI < fF)
-        {
-
-            //Desmarcar error
-            document.getElementById('formuNuevaTarea').fechaFin.className = "form-control input-md";  //Pone esta class a la etiqueta.
-
-            var sMensaje = "¡ Tarea Añadida con éxito !";
-
-
-            var estado=document.getElementsByName("radioEstado");
-            // Recorremos todos los valores del radio button para encontrar el
-            // seleccionado
-            for(var i=0;i<estado.length;i++)
-            {
-                if(estado[i].checked)
-                    var resultadoestado=estado[i].value;
-            }
-
-
-
-
-            var oTarea = new Tarea(codTarea, nombre, fechaInicio,proyecto.nombreProyecto, fechaFin,resultadoestado);
-
-            oConsultoria.anadeTarea(oTarea);
-            toastr.success(sMensaje);
-            nuevaTarea();
-        }
-        else
-        {
-            toastr.error("Error, la fecha fin es anterior a la fecha inicio introducida.");
-            //Marcar error
-            document.getElementById('formuNuevaTarea').fechaFin.className = "form-control input-md error";
-        }
+        datosCorrectos = true;
     }
-    
+    return datosCorrectos;
 }
 
 

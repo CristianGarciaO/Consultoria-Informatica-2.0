@@ -175,7 +175,7 @@ function iniciar(){
 
     }
 
-
+    // *************** TAREAS ***************************************************************************
 
     $('#activarFormuTareas').click(function(){
 
@@ -185,9 +185,15 @@ function iniciar(){
 
             $('#dialogoTarea').load("formularios/formularioTarea/tarea.html", function()
                 {
+
+
+                    $.get('formularios/formularioTarea/cargarComboTrabajador.php',null,cargaComboTrabajadores,'json');
+                    $.get('formularios/formularioTarea/cargarComboTareas.php',null,cargarComboTareas,'json');
+                    $.get('formularios/formularioTarea/cargarComboProyectos.php',null,cargarComboProyectos,'json');
+
                     $.getScript("formularios/formularioTarea/tarea.js");
                     var dateFormat = "dd/mm/yy",
-                        from = $( "#fechaIni" )
+                        from = $( "#fechaIniTarea" )
                             .datepicker({
                                 dateFormat: 'dd/mm/yy',
                                 defaultDate: "+1w",
@@ -198,7 +204,7 @@ function iniciar(){
                             .on( "change", function() {
                                 to.datepicker( "option", "minDate", getDate( this ) );
                             }),
-                        to = $( "#fechaFin" ).datepicker({
+                        to = $( "#fechaFinTarea" ).datepicker({
                                 dateFormat: 'dd/mm/yy',
                                 defaultDate: "+1w",
                                 changeMonth: true,
@@ -229,7 +235,41 @@ function iniciar(){
     });
 
 
+    function cargaComboTrabajadores(oArrayTrabajadores,sStatus,oXHR) {
 
+        $("#idTrabajadores").empty();
+
+        jQuery.each(oArrayTrabajadores, function (i, elemento) {
+
+            $('<option value="' + elemento.dniTrabajador + '">' + elemento.nombreTrabajador +
+                ' ' + elemento.apellidoTrabajador + ' </option>').appendTo("#idTrabajadores");
+
+        });
+    }
+
+        function cargarComboTareas(oArrayTareas,sStatus,oXHR) {
+
+            $("#tiposTareas").empty();
+
+            jQuery.each(oArrayTareas, function (i, elemento) {
+
+                $('<option value="' + elemento.idTarea + '">' + elemento.nombreTarea
+                    + ' </option>').appendTo("#tiposTareas");
+
+            });
+        }
+
+    function cargarComboProyectos(oArrayProyectos,sStatus,oXHR) {
+
+        $("#idProyectoSelect").empty();
+
+        jQuery.each(oArrayProyectos, function (i, elemento) {
+
+            $('<option value="' + elemento.idProyecto + '">' + elemento.nombreProyecto
+                + ' </option>').appendTo("#idProyectoSelect");
+
+        });
+    }
 
 
 }
@@ -237,6 +277,7 @@ function ocultarFormularios() {
     $('#divFormCliente').hide();
     $('#divFormTrabajador').hide();
     $('#divFormProyecto').hide();
+    $('#divFormTarea').hide();
 }
 
 

@@ -23,7 +23,7 @@ $("#divFormProyecto").dialog({
         click: procesarProyecto
     },{
         text: "Modificar Proyecto",
-        click: procesarProyecto
+        click: procesarModifificarProyecto
     }, {
         text: "Cancelar",
         click: function() {
@@ -33,7 +33,7 @@ $("#divFormProyecto").dialog({
 });
 
 function procesarProyecto() {
-    if(validarAltaProyecto()){
+    if(validarProyecto()){
          var sNombre=$("#nombreProyecto").val().trim();
          var sCliente = $("#clienteProyecto").val();
          var dPrecio=$("#precioProyecto").val().trim();
@@ -53,7 +53,7 @@ function procesarProyecto() {
          $.ajax({ url : "formularios/formularioProyecto/altaProyecto.php",
          data:{datos:jProyecto},
          async: true, // Valor por defecto
-         dataType :'html',
+         dataType :'json',
          method: "POST",
          cache: false, // ya por defecto es false para POST
          success: tratarRespuestaAltaProyecto,
@@ -83,7 +83,7 @@ function tratarErrorAltaProyecto(oArrayRespuesta, sStatus, sError){
 
 }
 
-function validarAltaProyecto() {
+function validarProyecto() {
 
     var bValido = true;
     var sErrores = "";
@@ -182,4 +182,10 @@ function validarAltaProyecto() {
         devolver=true;
     }
     return devolver;
+}
+function procesarModifificarProyecto() {
+    if(validarProyecto())
+    {
+        
+    }
 }

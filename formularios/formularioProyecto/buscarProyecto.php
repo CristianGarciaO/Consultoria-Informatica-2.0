@@ -9,23 +9,28 @@ $basedatos = "consultoriabd";
 $usuario   = "root";
 $password  = "";
 
-$datos=$_REQUEST['datos'];
+$nombreProyecto=$_REQUEST['datos'];
 
-$oProyecto = json_decode($datos);
+$oProyecto = json_decode($nombreProyecto);
 $conexion=mysqli_connect($servidor,$usuario,$password,$basedatos) or die("Conexion fallida: ".mysqli_connect_error());
 $conexion->set_charset("utf8");
 
 
-$sql = "INSERT INTO proyecto (nombreProyecto,idCliente,precio,fechaIniProyecto,fechaFinProyecto) 
-values ('".$oProyecto->nombre."','".$oProyecto->cliente."',".$oProyecto->precio.",".$oProyecto->fechaIni.",".$oProyecto->fechaFin.")";
+$sql = "SELECT * FROM proyecto WHERE nombreProyecto='".$nombreProyecto."'";
 
+
+$arrayADevolver=[];
 $resultados=$conexion->query($sql);
 
-$mensaje='Alta de Proyecto realizada';
-$error = false;
-$respuesta = array($error,$mensaje);
 
-echo json_encode($respuesta);
+while($v=mysqli_fetch_row ($resultados)){
+   
+    foreach($v as $indice => $valor) {
+        $arrayADevolver[]=$valor;
+    }
+  
+}
+echo json_encode($arrayADevolver);
 
 $conexion->close();
 

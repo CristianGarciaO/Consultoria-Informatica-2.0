@@ -104,12 +104,13 @@ function iniciar(){
                 {
                     $.get('formularios/formularioProyecto/cargarClientes.php',null,tratarCargarClientes,'json');
                     $.getScript("formularios/formularioProyecto/proyecto.js");
-                   
-                            
-                            var dateFormat = "dd/mm/yy",
+
+                    $( "#buscar" ).on( "click", buscarProyecto);
+
+                            var dateFormat = "yy/mm/dd",
                                 from = $( "#fechaIniProyecto" )
                                     .datepicker({
-                                        dateFormat: 'dd/mm/yy',
+                                        dateFormat: 'yy/mm/dd',
                                         defaultDate: "+1w",
                                         changeMonth: true,
                                         changeYear: true,
@@ -119,7 +120,7 @@ function iniciar(){
                                         to.datepicker( "option", "minDate", getDate( this ) );
                                     }),
                                 to = $( "#fechaFinProyecto" ).datepicker({
-                                        dateFormat: 'dd/mm/yy',
+                                        dateFormat: 'yy/mm/dd',
                                         defaultDate: "+1w",
                                         changeMonth: true,
                                         changeYear: true
@@ -149,6 +150,34 @@ function iniciar(){
         }
 
     });
+
+    function buscarProyecto()
+    {
+
+        var nombreProyect=$("#nombreProyecto").val().trim();
+if(nombreProyect=="")
+{
+    $("#nombreProyecto").addClass("error");
+    toastr.error("¡Para buscar rellene el campo!");
+}else {
+    $("#nombreProyecto").removeClass("error");
+    $.post("formularios/formularioProyecto/buscarProyecto.php", {datos: nombreProyect}, function (arrayInfoProyecto) {
+
+        jQuery.each(arrayInfoProyecto,function(i,elemento){
+
+           alert(elemento);
+
+        });
+
+
+
+
+    }, "json");
+}
+}
+
+
+
 
     function tratarCargarClientes(oArrayTareas,sStatus,oXHR){
 
@@ -195,7 +224,7 @@ function iniciar(){
                     var dateFormat = "dd/mm/yy",
                         from = $( "#fechaIniTarea" )
                             .datepicker({
-                                dateFormat: 'dd/mm/yy',
+                                dateFormat: 'yy/mm/dd',
                                 defaultDate: "+1w",
                                 changeMonth: true,
                                 changeYear: true,

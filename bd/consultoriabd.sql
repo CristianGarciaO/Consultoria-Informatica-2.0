@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-03-2017 a las 23:28:21
--- Versión del servidor: 5.5.39
--- Versión de PHP: 5.4.31
+-- Tiempo de generación: 09-03-2017 a las 14:03:56
+-- Versión del servidor: 10.1.13-MariaDB
+-- Versión de PHP: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de datos: `consultoriabd`
@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `cliente`
 --
 
-CREATE TABLE IF NOT EXISTS `cliente` (
+CREATE TABLE `cliente` (
   `nombreCliente` varchar(30) NOT NULL,
   `apellidoCliente` varchar(30) NOT NULL,
   `dniCliente` varchar(9) NOT NULL,
@@ -40,7 +40,8 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 
 INSERT INTO `cliente` (`nombreCliente`, `apellidoCliente`, `dniCliente`, `telefonoCliente`, `direccionCliente`) VALUES
 ('Juan', 'Lopez', '34563453A', 695216965, 'Pasaje Paraiso'),
-('Carlos', 'Rodriguez', '35787643X', 678543677, 'Avenida los Pinos');
+('Carlos', 'Rodriguez', '35787643X', 678543677, 'Avenida los Pinos'),
+('Alberto', 'Rosa', '65985544K', 658965858, 'Calle Ocaso 25');
 
 -- --------------------------------------------------------
 
@@ -48,14 +49,14 @@ INSERT INTO `cliente` (`nombreCliente`, `apellidoCliente`, `dniCliente`, `telefo
 -- Estructura de tabla para la tabla `proyecto`
 --
 
-CREATE TABLE IF NOT EXISTS `proyecto` (
-`idProyecto` int(5) NOT NULL,
+CREATE TABLE `proyecto` (
+  `idProyecto` int(5) NOT NULL,
   `nombreProyecto` varchar(30) NOT NULL,
   `idCliente` varchar(9) NOT NULL,
   `precio` double(10,2) NOT NULL,
   `fechaIniProyecto` date NOT NULL,
   `fechaFinProyecto` date NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1302 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `proyecto`
@@ -71,7 +72,7 @@ INSERT INTO `proyecto` (`idProyecto`, `nombreProyecto`, `idCliente`, `precio`, `
 -- Estructura de tabla para la tabla `tarea`
 --
 
-CREATE TABLE IF NOT EXISTS `tarea` (
+CREATE TABLE `tarea` (
   `idTarea` int(5) NOT NULL,
   `idProyecto` int(5) NOT NULL,
   `idTipoTarea` int(5) NOT NULL,
@@ -87,7 +88,8 @@ CREATE TABLE IF NOT EXISTS `tarea` (
 
 INSERT INTO `tarea` (`idTarea`, `idProyecto`, `idTipoTarea`, `idTrabajador`, `fechaIniTarea`, `fechaFinTarea`, `estadoTarea`) VALUES
 (1001, 1300, 1, '34567843C', '2017-06-14', '2017-11-15', 'Empezado'),
-(1013, 1301, 2, '67453469V', '2017-05-14', '2017-06-15', 'Casi terminado');
+(1013, 1301, 2, '67453469V', '2017-05-14', '2017-06-15', 'Casi terminado'),
+(1018, 1300, 2, '34567843C', '0000-00-00', '0000-00-00', 'Avanzado');
 
 -- --------------------------------------------------------
 
@@ -95,7 +97,7 @@ INSERT INTO `tarea` (`idTarea`, `idProyecto`, `idTipoTarea`, `idTrabajador`, `fe
 -- Estructura de tabla para la tabla `tipo_tarea`
 --
 
-CREATE TABLE IF NOT EXISTS `tipo_tarea` (
+CREATE TABLE `tipo_tarea` (
   `idTarea` int(5) NOT NULL,
   `nombreTarea` varchar(30) NOT NULL,
   `descripcionTarea` varchar(80) NOT NULL
@@ -107,7 +109,9 @@ CREATE TABLE IF NOT EXISTS `tipo_tarea` (
 
 INSERT INTO `tipo_tarea` (`idTarea`, `nombreTarea`, `descripcionTarea`) VALUES
 (1, 'Analisis', 'Evaluar los cambios y realizar un test de comprobación'),
-(2, 'Codificación', 'Codificar el código dado para su mejor funcionamiento');
+(2, 'Codificación', 'Codificar el código dado para su mejor funcionamiento'),
+(3, 'Depuración', 'Corrección de errores'),
+(4, 'Testeo', 'Pruebas sobre las aplicaciones');
 
 -- --------------------------------------------------------
 
@@ -115,7 +119,7 @@ INSERT INTO `tipo_tarea` (`idTarea`, `nombreTarea`, `descripcionTarea`) VALUES
 -- Estructura de tabla para la tabla `tipo_trabajador`
 --
 
-CREATE TABLE IF NOT EXISTS `tipo_trabajador` (
+CREATE TABLE `tipo_trabajador` (
   `id` int(11) NOT NULL,
   `tipo` varchar(22) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -135,7 +139,7 @@ INSERT INTO `tipo_trabajador` (`id`, `tipo`) VALUES
 -- Estructura de tabla para la tabla `trabajador`
 --
 
-CREATE TABLE IF NOT EXISTS `trabajador` (
+CREATE TABLE `trabajador` (
   `nombreTrabajador` varchar(30) NOT NULL,
   `dniTrabajador` varchar(9) NOT NULL,
   `apellidoTrabajador` varchar(30) NOT NULL,
@@ -162,37 +166,41 @@ INSERT INTO `trabajador` (`nombreTrabajador`, `dniTrabajador`, `apellidoTrabajad
 -- Indices de la tabla `cliente`
 --
 ALTER TABLE `cliente`
- ADD PRIMARY KEY (`dniCliente`);
+  ADD PRIMARY KEY (`dniCliente`);
 
 --
 -- Indices de la tabla `proyecto`
 --
 ALTER TABLE `proyecto`
- ADD PRIMARY KEY (`idProyecto`), ADD KEY `idCliente` (`idCliente`);
+  ADD PRIMARY KEY (`idProyecto`),
+  ADD KEY `idCliente` (`idCliente`);
 
 --
 -- Indices de la tabla `tarea`
 --
 ALTER TABLE `tarea`
- ADD PRIMARY KEY (`idTarea`), ADD KEY `idProyecto` (`idProyecto`), ADD KEY `idTipoTarea` (`idTipoTarea`), ADD KEY `idTrabajador` (`idTrabajador`);
+  ADD PRIMARY KEY (`idTarea`),
+  ADD KEY `idProyecto` (`idProyecto`),
+  ADD KEY `idTipoTarea` (`idTipoTarea`),
+  ADD KEY `idTrabajador` (`idTrabajador`);
 
 --
 -- Indices de la tabla `tipo_tarea`
 --
 ALTER TABLE `tipo_tarea`
- ADD PRIMARY KEY (`idTarea`);
+  ADD PRIMARY KEY (`idTarea`);
 
 --
 -- Indices de la tabla `tipo_trabajador`
 --
 ALTER TABLE `tipo_trabajador`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `trabajador`
 --
 ALTER TABLE `trabajador`
- ADD PRIMARY KEY (`dniTrabajador`);
+  ADD PRIMARY KEY (`dniTrabajador`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -202,7 +210,12 @@ ALTER TABLE `trabajador`
 -- AUTO_INCREMENT de la tabla `proyecto`
 --
 ALTER TABLE `proyecto`
-MODIFY `idProyecto` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1302;
+  MODIFY `idProyecto` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1302;
+--
+-- AUTO_INCREMENT de la tabla `tarea`
+--
+ALTER TABLE `tarea`
+  MODIFY `idTarea` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1019;
 --
 -- Restricciones para tablas volcadas
 --
@@ -211,16 +224,16 @@ MODIFY `idProyecto` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1302;
 -- Filtros para la tabla `proyecto`
 --
 ALTER TABLE `proyecto`
-ADD CONSTRAINT `proyecto_ibfk_1` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`dniCliente`);
+  ADD CONSTRAINT `proyecto_ibfk_1` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`dniCliente`);
 
 --
 -- Filtros para la tabla `tarea`
 --
 ALTER TABLE `tarea`
-ADD CONSTRAINT `tarea_ibfk_1` FOREIGN KEY (`idProyecto`) REFERENCES `proyecto` (`idProyecto`),
-ADD CONSTRAINT `tarea_ibfk_2` FOREIGN KEY (`idProyecto`) REFERENCES `proyecto` (`idProyecto`),
-ADD CONSTRAINT `tarea_ibfk_3` FOREIGN KEY (`idTipoTarea`) REFERENCES `tipo_tarea` (`idTarea`),
-ADD CONSTRAINT `tarea_ibfk_4` FOREIGN KEY (`idTrabajador`) REFERENCES `trabajador` (`dniTrabajador`);
+  ADD CONSTRAINT `tarea_ibfk_1` FOREIGN KEY (`idProyecto`) REFERENCES `proyecto` (`idProyecto`),
+  ADD CONSTRAINT `tarea_ibfk_2` FOREIGN KEY (`idProyecto`) REFERENCES `proyecto` (`idProyecto`),
+  ADD CONSTRAINT `tarea_ibfk_3` FOREIGN KEY (`idTipoTarea`) REFERENCES `tipo_tarea` (`idTarea`),
+  ADD CONSTRAINT `tarea_ibfk_4` FOREIGN KEY (`idTrabajador`) REFERENCES `trabajador` (`dniTrabajador`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

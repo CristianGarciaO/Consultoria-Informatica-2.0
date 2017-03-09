@@ -312,6 +312,51 @@ if(nombreProyect=="")
 
 
 }
+
+
+
+
+
+// *************** LISTADOS ***************************************************************************
+
+$('#activarListados').click(function(){
+
+    // ocultarFormularios();
+    // SE VERIFICA SI EL FORMU ESTABA ANTES
+    if( $('#divFormMenuListados').size() == 0 ){
+
+        $('#dialogoListados').load("formularios/formularioListados/listados.html", function()
+            {
+
+                // $.get('formularios/formularioTarea/cargarComboTrabajador.php',null,cargaComboTrabajadores,'json');
+                // $.get('formularios/formularioTarea/cargarComboTareas.php',null,cargarComboTareas,'json');
+                // $.get('formularios/formularioTarea/cargarComboProyectos.php',null,cargarComboProyectos,'json');
+
+                $.getScript("formularios/formularioListados/listar.js");
+
+            }
+        );
+    } else {
+        //SE ABRE SI ESTA CERRADO
+        $('#divFormMenuListados').dialog("open");
+    }
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function ocultarFormularios() {
     $('#divFormCliente').hide();
     $('#divFormTrabajador').hide();

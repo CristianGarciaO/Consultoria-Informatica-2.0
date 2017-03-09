@@ -22,7 +22,7 @@ $conn->set_charset("utf8");
 
 
 $sql = "INSERT INTO tarea (idProyecto,idTipoTarea, idTrabajador,fechaIniTarea,fechaFinTarea,estadoTarea) 
-values (".$oTarea->idProyecto.",".$oTarea->idTipoTarea.",".$oTarea->idTrabajador.",".$oTarea->dFechaInicio.","
+values (".$oTarea->idProyecto.",".$oTarea->idTipoTarea.",'".$oTarea->idTrabajador."',".$oTarea->dFechaInicio.","
     .$oTarea->dFechaFin.",'".$oTarea->estado."')";
 
 $resIns = $conn->query($sql);

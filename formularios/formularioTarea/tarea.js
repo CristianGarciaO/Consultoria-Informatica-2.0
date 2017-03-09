@@ -20,10 +20,10 @@ $("#divFormTarea").dialog({
     modal: true,
     buttons: [{
         text: "Guardar",
-        click: procesarTarea
+        click: procesarGuardaTarea
     },{
         text: "Modificar",
-        click: procesarTarea
+        click: procesarGuardaTarea
     }, {
         text: "Cancelar",
         click: function() {
@@ -32,7 +32,13 @@ $("#divFormTarea").dialog({
     }]
 });
 
-function procesarTarea() {
+
+
+
+
+
+
+function procesarGuardaTarea() {
 
     if(validaFormTarea()){
         var sIdProyecto=$("#idProyectoSelect").val();
@@ -62,6 +68,20 @@ function procesarTarea() {
             success: procesarRespuestaGuardarTarea,
             error :procesaErrorGuardarTarea
         });
+    }
+
+    function procesarGuardaTarea(){
+
+        //Comprobar si el dialogo esta abierto
+
+
+
+
+        // document.getElementById('idProyectoSelect').addEventListener('change', pideDatosProyecto,false);
+
+
+
+
     }
 
 }

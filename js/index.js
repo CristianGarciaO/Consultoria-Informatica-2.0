@@ -226,14 +226,13 @@ if(nombreProyect=="")
             $('#dialogoTarea').load("formularios/formularioTarea/tarea.html", function()
                 {
 
-
                     $.get('formularios/formularioTarea/cargarComboTrabajador.php',null,cargaComboTrabajadores,'json');
                     $.get('formularios/formularioTarea/cargarComboTareas.php',null,cargarComboTareas,'json');
                     $.get('formularios/formularioTarea/cargarComboProyectos.php',null,cargarComboProyectos,'json');
 
                     $.getScript("formularios/formularioTarea/tarea.js");
                     var dateFormat = "dd/mm/yy",
-                        from = $( "#fechaIni" )
+                        from = $( "#fechaIniTarea" )
                             .datepicker({
                                 dateFormat: 'dd/mm/yy',
                                 defaultDate: "+1w",
@@ -244,7 +243,7 @@ if(nombreProyect=="")
                             .on( "change", function() {
                                 to.datepicker( "option", "minDate", getDate( this ) );
                             }),
-                        to = $( "#fechaFin" ).datepicker({
+                        to = $( "#fechaFinTarea" ).datepicker({
                                 dateFormat: 'dd/mm/yy',
                                 defaultDate: "+1w",
                                 changeMonth: true,

@@ -16,14 +16,14 @@ $conexion=mysqli_connect($servidor,$usuario,$password,$basedatos) or die("Conexi
 $conexion->set_charset("utf8");
 
 
-$sql = "SELECT * FROM proyecto WHERE nombreProyecto='".$nombreProyecto."'";
+$sql = "SELECT idProyecto,nombreProyecto,idCliente,precio,DATE_FORMAT(fechaIniProyecto, \"%d/%m/%Y\"),DATE_FORMAT(fechaFinProyecto, \"%d/%m/%Y\") FROM proyecto WHERE nombreProyecto='".$nombreProyecto."'";
 
 
 $arrayADevolver=[];
 $resultados=$conexion->query($sql);
 
 
-while($v=mysqli_fetch_row ($resultados)){
+while($v=mysqli_fetch_assoc($resultados)){
    
     foreach($v as $indice => $valor) {
         $arrayADevolver[]=$valor;

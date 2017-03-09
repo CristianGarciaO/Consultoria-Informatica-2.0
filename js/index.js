@@ -107,10 +107,10 @@ function iniciar(){
 
                     $( "#buscar" ).on( "click", buscarProyecto);
 
-                            var dateFormat = "yy/mm/dd",
+                            var dateFormat = "dd/mm/yy",
                                 from = $( "#fechaIniProyecto" )
                                     .datepicker({
-                                        dateFormat: 'yy/mm/dd',
+                                        dateFormat: 'dd/mm/yy',
                                         defaultDate: "+1w",
                                         changeMonth: true,
                                         changeYear: true,
@@ -120,7 +120,7 @@ function iniciar(){
                                         to.datepicker( "option", "minDate", getDate( this ) );
                                     }),
                                 to = $( "#fechaFinProyecto" ).datepicker({
-                                        dateFormat: 'yy/mm/dd',
+                                        dateFormat: 'dd/mm/yy',
                                         defaultDate: "+1w",
                                         changeMonth: true,
                                         changeYear: true
@@ -151,7 +151,7 @@ function iniciar(){
 
     });
 
-    function buscarProyecto()
+    function buscarProyecto() 
     {
 
         var nombreProyect=$("#nombreProyecto").val().trim();
@@ -163,18 +163,29 @@ if(nombreProyect=="")
     $("#nombreProyecto").removeClass("error");
     $.post("formularios/formularioProyecto/buscarProyecto.php", {datos: nombreProyect}, function (arrayInfoProyecto) {
 
-        jQuery.each(arrayInfoProyecto,function(i,elemento){
-
-           alert(elemento);
-
-        });
-
-
-
-
+        if(arrayInfoProyecto.length==0)
+        {
+         toastr.error("¡No existe ningun Proyecto con ese nombre!");
+            $("#nombreProyecto").addClass("error");
+        }
+        else {
+            $("#nombreProyecto").removeClass("error");
+            $("#idProyectoMod").val(arrayInfoProyecto[0]);
+            $('#clienteProyecto> option:selected').removeAttr("selected");
+            $('#clienteProyecto> option[value="'+ arrayInfoProyecto[2] +'"]').attr('selected', 'selected').effect( "pulsate",null, 500);
+            $("#precioProyecto").val(arrayInfoProyecto[3]).effect( "pulsate",null, 500);
+            $("#fechaIniProyecto").val(arrayInfoProyecto[4]).effect( "pulsate",null, 500);
+            $("#fechaFinProyecto").val(arrayInfoProyecto[5]).effect( "pulsate",null, 500);
+        }
     }, "json");
 }
 }
+
+
+
+
+
+
 
 
 
@@ -221,10 +232,10 @@ if(nombreProyect=="")
                     $.get('formularios/formularioTarea/cargarComboProyectos.php',null,cargarComboProyectos,'json');
 
                     $.getScript("formularios/formularioTarea/tarea.js");
-                    var dateFormat = "yy/mm/dd",
-                        from = $( "#fechaIniTarea" )
+                    var dateFormat = "dd/mm/yy",
+                        from = $( "#fechaIni" )
                             .datepicker({
-                                dateFormat: 'yy/mm/dd',
+                                dateFormat: 'dd/mm/yy',
                                 defaultDate: "+1w",
                                 changeMonth: true,
                                 changeYear: true,
@@ -233,8 +244,8 @@ if(nombreProyect=="")
                             .on( "change", function() {
                                 to.datepicker( "option", "minDate", getDate( this ) );
                             }),
-                        to = $( "#fechaFinTarea" ).datepicker({
-                                dateFormat: 'yy/mm/dd',
+                        to = $( "#fechaFin" ).datepicker({
+                                dateFormat: 'dd/mm/yy',
                                 defaultDate: "+1w",
                                 changeMonth: true,
                                 changeYear: true

@@ -34,10 +34,6 @@ $("#divFormTarea").dialog({
 
 
 
-
-
-
-
 function procesarGuardaTarea() {
 
     if(validaFormTarea()){

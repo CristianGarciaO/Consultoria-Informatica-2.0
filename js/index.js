@@ -221,7 +221,7 @@ if(nombreProyect=="")
                     $.get('formularios/formularioTarea/cargarComboProyectos.php',null,cargarComboProyectos,'json');
 
                     $.getScript("formularios/formularioTarea/tarea.js");
-                    var dateFormat = "dd/mm/yy",
+                    var dateFormat = "yy/mm/dd",
                         from = $( "#fechaIniTarea" )
                             .datepicker({
                                 dateFormat: 'yy/mm/dd',
@@ -234,7 +234,7 @@ if(nombreProyect=="")
                                 to.datepicker( "option", "minDate", getDate( this ) );
                             }),
                         to = $( "#fechaFinTarea" ).datepicker({
-                                dateFormat: 'dd/mm/yy',
+                                dateFormat: 'yy/mm/dd',
                                 defaultDate: "+1w",
                                 changeMonth: true,
                                 changeYear: true

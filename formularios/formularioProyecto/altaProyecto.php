@@ -15,16 +15,11 @@ $oProyecto = json_decode($datos);
 $conexion=mysqli_connect($servidor,$usuario,$password,$basedatos) or die("Conexion fallida: ".mysqli_connect_error());
 $conexion->set_charset("utf8");
 
-
-$ini=date_create($oProyecto->fechaIni);
-$fin=date_create($oProyecto->fechaFin);
-$fechaIni = DATE_FORMAT($ini, "%Y/%m/%d");;
-$fechaFin = DATE_FORMAT($fin, "%Y/%m/%d");;
-
-
+$fechaIni=$oProyecto->fechaIni;
+$fechaFin=$oProyecto->fechaFin;
 
 $sql = "INSERT INTO proyecto (nombreProyecto,idCliente,precio,fechaIniProyecto,fechaFinProyecto) 
-values ('".$oProyecto->nombre."','".$oProyecto->cliente."',".$oProyecto->precio.",".$fechaIni.",".$fechaFin.")";
+values ('".$oProyecto->nombre."','".$oProyecto->cliente."',".$oProyecto->precio.",'".$fechaIni."','".$fechaFin."')";
 
 $resultados=$conexion->query($sql);
 

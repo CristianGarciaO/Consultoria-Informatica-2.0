@@ -37,8 +37,9 @@ function procesarProyecto() {
          var sNombre=$("#nombreProyecto").val().trim();
          var sCliente = $("#clienteProyecto").val();
          var dPrecio=$("#precioProyecto").val().trim();
-         var dFechaIni=$("#fechaIniProyecto").val();
-         var dFechaFin=$("#fechaFinProyecto").val();
+         var dFechaIni=$("#fechaIniProyecto").val().trim();
+         var dFechaFin=$("#fechaFinProyecto").val().trim();
+
 
          var oProyecto={
          nombre:sNombre,
@@ -47,7 +48,7 @@ function procesarProyecto() {
          fechaIni:dFechaIni,
          fechaFin:dFechaFin
          };
-
+        $("#fechaFinProyecto").val($.datepicker.formatDate('yy/mm/dd', new Date()));
          var jProyecto=JSON.stringify(oProyecto);
 
          $.ajax({ url : "formularios/formularioProyecto/altaProyecto.php",

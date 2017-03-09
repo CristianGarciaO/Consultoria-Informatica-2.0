@@ -16,7 +16,7 @@ $conexion=mysqli_connect($servidor,$usuario,$password,$basedatos) or die("Conexi
 $conexion->set_charset("utf8");
 
 
-$sql = "SELECT idProyecto,nombreProyecto,idCliente,precio,DATE_FORMAT(fechaIniProyecto, \"%d/%m/%Y\"),DATE_FORMAT(fechaFinProyecto, \"%d/%m/%Y\") FROM proyecto WHERE nombreProyecto='".$nombreProyecto."'";
+$sql = "SELECT * FROM proyecto WHERE nombreProyecto='".$nombreProyecto."'";
 
 
 $arrayADevolver=[];

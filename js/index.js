@@ -29,7 +29,7 @@ function iniciar(){
         } else {
             //SE ABRE SI ESTA CERRADO
             $('#divFormCliente').dialog("open");
-            $("#nombreCliente").removeAttr("readonly");
+            $("#dniCliente").removeAttr("readonly");
             $("button#modificarCliente").hide();
             $("button#guardarCliente").show();
             comprobarCampos("divFormCliente",false);
@@ -48,10 +48,15 @@ function iniciar(){
 
             $('#dialogoTrabajador').load("formularios/formularioTrabajador/trabajador.html", function() {
                     $.getScript("formularios/formularioTrabajador/trabajador.js");
+                $( "#buscar" ).on( "click", buscarTrabajador);
             });
         } else {
             //SE ABRE SI ESTA CERRADO
             $('#divFormTrabajador').dialog("open");
+            $("#dniTrabajador").removeAttr("readonly");
+            $("button#modificarTrabajador").hide();
+            $("button#guardarTrabajador").show();
+            comprobarCampos("divFormTrabajador");
         }
 
         cargarTiposTrabajadores();
@@ -215,11 +220,45 @@ if(nombreProyect=="")
                     $("button#modificarCliente").show();
                     $("#dniCliente").removeClass("error");
                     $("#dniCliente").attr("readonly","readonly");
-
                     $("#nombreCliente").val(arrayInfoCliente[0]).effect( "pulsate",null, 500);
                     $("#apellidoCliente").val(arrayInfoCliente[1]).effect( "pulsate",null, 500);
                     $("#telefonoCliente").val(arrayInfoCliente[3]).effect( "pulsate",null, 500);
                     $("#direccionCliente").val(arrayInfoCliente[4]).effect( "pulsate",null, 500);
+                }
+            }, "json");
+        }
+    }
+
+    function buscarTrabajador()
+    {
+
+        var nombreTrabajador=$("#dniTrabajador").val().trim();
+        if(nombreTrabajador=="")
+        {
+            $("#dniTrabajador").addClass("error");
+            toastr.error("¡Para buscar rellene el campo!");
+        }else {
+            $("#dniTrabajador").removeClass("error");
+            $.post("formularios/formularioTrabajador/buscarTrabajador.php", {datos: nombreTrabajador}, function (arrayInfoTrabajador) {
+
+                if(arrayInfoTrabajador.length==0)
+                {
+                    toastr.error("¡No existe ningun Cliente con ese DNI!");
+                    $("#dniTrabajador").addClass("error");
+                }
+                else {
+                    $("button#guardarTrabajador").hide();
+                    $("button#modificarTrabajador").show();
+                    $("#dniTrabajador").removeClass("error");
+                    $("#dniTrabajador").attr("readonly","readonly");
+
+                    $('#tipoTrabajador> option:selected').removeAttr("selected");
+                    $('#tipoTrabajador> option[value="'+ arrayInfoTrabajador[5] +'"]').attr('selected', 'selected').effect( "pulsate",null, 500);
+
+                    $("#nombreTrabajador").val(arrayInfoTrabajador[0]).effect( "pulsate",null, 500);
+                    $("#apellidoTrabajador").val(arrayInfoTrabajador[2]).effect( "pulsate",null, 500);
+                    $("#telefonoTrabajador").val(arrayInfoTrabajador[4]).effect( "pulsate",null, 500);
+                    $("#direccionTrabajador").val(arrayInfoTrabajador[3]).effect( "pulsate",null, 500);
                 }
             }, "json");
         }

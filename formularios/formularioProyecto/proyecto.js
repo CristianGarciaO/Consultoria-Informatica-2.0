@@ -19,9 +19,11 @@ $("#divFormProyecto").dialog({
     show: "bounce",
     modal: true,
     buttons: [{
+        id:"guardar",
         text: "Guardar Proyecto",
         click: procesarProyecto
     },{
+        id:"modificar",
         text: "Modificar Proyecto",
         click: procesarModifificarProyecto
     }, {
@@ -48,7 +50,6 @@ function procesarProyecto() {
          fechaIni:dFechaIni,
          fechaFin:dFechaFin
          };
-        $("#fechaFinProyecto").val($.datepicker.formatDate('yy/mm/dd', new Date()));
          var jProyecto=JSON.stringify(oProyecto);
 
          $.ajax({ url : "formularios/formularioProyecto/altaProyecto.php",
@@ -187,6 +188,32 @@ function validarProyecto() {
 function procesarModifificarProyecto() {
     if(validarProyecto())
     {
-        
+        var sNombre=$("#nombreProyecto").val().trim();
+        var sCliente = $("#clienteProyecto").val();
+        var dPrecio=$("#precioProyecto").val().trim();
+        var dFechaIni=$("#fechaIniProyecto").val().trim();
+        var dFechaFin=$("#fechaFinProyecto").val().trim();
+
+
+        var oProyecto={
+            nombre:sNombre,
+            cliente:sCliente,
+            precio:dPrecio,
+            fechaIni:dFechaIni,
+            fechaFin:dFechaFin
+        };
+        var jProyecto=JSON.stringify(oProyecto);
+    var update=JSON.stringify("update");
+        $.ajax({ url : "formularios/formularioProyecto/altaProyecto.php",
+            data:{datos:jProyecto,update:update},
+            async: true, // Valor por defecto
+            dataType :'json',
+            method: "POST",
+            cache: false, // ya por defecto es false para POST
+            success: tratarRespuestaAltaProyecto,
+            error :tratarErrorAltaProyecto
+        });
     }
 }
+$("button#modificar").hide();
+$("button#guardar").show();

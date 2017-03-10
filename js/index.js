@@ -104,9 +104,7 @@ function iniciar(){
                 {
                     $.get('formularios/formularioProyecto/cargarClientes.php',null,tratarCargarClientes,'json');
                     $.getScript("formularios/formularioProyecto/proyecto.js");
-
                     $( "#buscar" ).on( "click", buscarProyecto);
-
                             var dateFormat = "yy-mm-dd",
                                 from = $( "#fechaIniProyecto" )
                                     .datepicker({
@@ -139,14 +137,19 @@ function iniciar(){
 
                                 return date;
                             }
-
                         }
+
                     
                 
             );
         } else {
             //SE ABRE SI ESTA CERRADO
+
             $('#divFormProyecto').dialog("open");
+            $("#nombreProyecto").removeAttr("readonly");
+            $("button#modificar").hide();
+            $("button#guardar").show();
+            comprobarCampos("divFormProyecto");
         }
 
     });
@@ -169,7 +172,10 @@ if(nombreProyect=="")
             $("#nombreProyecto").addClass("error");
         }
         else {
+            $("button#guardar").hide();
+            $("button#modificar").show();
             $("#nombreProyecto").removeClass("error");
+            $("#nombreProyecto").attr("readonly","readonly");
             $("#idProyectoMod").val(arrayInfoProyecto[0]);
             $('#clienteProyecto> option:selected').removeAttr("selected");
             $('#clienteProyecto> option[value="'+ arrayInfoProyecto[2] +'"]').attr('selected', 'selected').effect( "pulsate",null, 500);
@@ -182,6 +188,23 @@ if(nombreProyect=="")
 }
 
 
+    function comprobarCampos(id,select) {
+        if(select==undefined)
+            select=true;//para poner el valor por defecto a true si no se envia el parametro select
+        var oFormu = document.getElementById(id).querySelectorAll('input');
+        for (var i = 0; i < oFormu.length; i++) {
+            if (oFormu[i].classList.contains('error')) {
+                oFormu[i].classList.remove('error');
+            }
+        }
+        if(select){
+            var oForm = document.getElementById(id).querySelectorAll('select');
+            for (var i = 0; i < oForm.length; i++) {
+                if (oForm[i].classList.contains('error')) {
+                    oForm[i].classList.remove('error');
+                }
+            }}
+    }
 
 
 

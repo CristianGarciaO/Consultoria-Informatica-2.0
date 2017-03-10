@@ -18,12 +18,28 @@ $conexion->set_charset("utf8");
 $fechaIni=$oProyecto->fechaIni;
 $fechaFin=$oProyecto->fechaFin;
 
-$sql = "INSERT INTO proyecto (nombreProyecto,idCliente,precio,fechaIniProyecto,fechaFinProyecto) 
-values ('".$oProyecto->nombre."','".$oProyecto->cliente."',".$oProyecto->precio.",'".$fechaIni."','".$fechaFin."')";
+
+if(isset($_REQUEST["update"]))
+{
+    
+    $sqlBusqueda="SELECT idProyecto FROM proyecto WHERE nombreProyecto='".$oProyecto->nombre."'"; 
+    $idP=$conexion->query($sqlBusqueda);
+    $idProyecto= $idP->fetch_assoc();
+    
+    
+    $sql = "UPDATE proyecto SET idCliente='".$oProyecto->cliente."', precio=".$oProyecto->precio.", fechaIniProyecto='".$fechaIni."', fechaFinProyecto='".$fechaFin."' WHERE idProyecto=".$idProyecto["idProyecto"];
+    $mensaje='¡Modificación del Proyecto "'.$oProyecto->nombre.'" realizada!';
+}
+else {
+
+    $sql = "INSERT INTO proyecto (nombreProyecto,idCliente,precio,fechaIniProyecto,fechaFinProyecto) 
+values ('" . $oProyecto->nombre . "','" . $oProyecto->cliente . "'," . $oProyecto->precio . ",'" . $fechaIni . "','" . $fechaFin . "')";
+    $mensaje='¡Alta de Proyecto realizada!';
+}
 
 $resultados=$conexion->query($sql);
 
-$mensaje='Alta de Proyecto realizada';
+
 $error = false;
 $respuesta = array($error,$mensaje);
 

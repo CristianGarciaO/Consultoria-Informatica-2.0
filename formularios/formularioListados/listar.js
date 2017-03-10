@@ -87,7 +87,7 @@ function procesaXML(oXML){
     //borrar tabla si habia
     $("#listado").remove();
 
-    var jqTabla = $('<table id="listado" border="1">');
+    var jqTabla = $('<table id="listado" border="1" class="table">');
 
     if(oXML.getElementsByTagName("proyecto").length > 0){
         var oRespuestaXML = oXML.getElementsByTagName("proyecto");

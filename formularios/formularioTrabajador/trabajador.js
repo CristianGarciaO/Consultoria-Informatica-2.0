@@ -32,9 +32,11 @@ oDlgGestionTrabajador = $("#divFormTrabajador").dialog({
     show: "slide",
     modal: true,
     buttons: [{
+        id:"guardarTrabajador",
         text: "Guardar",
         click: gestionGuardardado
     },{
+        id:"modificarTrabajador",
         text: "Modificar",
         click: gestionModificar
     }, {
@@ -294,3 +296,5 @@ function validaFormNuevoTrabajador() {
     }
     return parametrosTrabajador;
 }
+$("button#modificarTrabajador").hide();
+$("button#guardarTrabajador").show();

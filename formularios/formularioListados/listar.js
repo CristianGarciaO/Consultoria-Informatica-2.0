@@ -29,14 +29,29 @@ $("#divFormMenuListados").dialog({
     }]
 });
 
+//Selector de precios
+
+$( function() {
+    $( "#slider" ).slider({
+        value:6000,
+        min: 0,
+        max: 150000,
+        step: 50,
+        slide: function( event, ui ) {
+            $( "#amount" ).val( ui.value );
+        }
+    });
+    $( "#amount" ).val( "$" + $( "#slider" ).slider( "value" ) );
+} );
+
 
 var oAjaxListado = null;
 
 function procesoListado(){
 
-    var listadoSeleccionado= $('#listadoSelecionado').val();
-
-    var sParametroGET = encodeURI("tabla="+listadoSeleccionado);
+    var seleccion= $('[name=formuMenuListados]').serialize();
+    console.log(seleccion);
+    var sParametroGET = seleccion;
 
     var sURL = encodeURI("formularios/formularioListados/listados.php?");
 
@@ -47,7 +62,7 @@ function procesoListado(){
 function llamadaAjaxListado(sURL,sParametroGET){
 
     oAjaxListado = objetoXHR();
-
+    console.log(sURL+sParametroGET);
     oAjaxListado.open("GET",sURL+sParametroGET,true);
 
     oAjaxListado.onreadystatechange = respuestaListado;
@@ -86,6 +101,10 @@ function procesaXML(oXML){
 
     //borrar tabla si habia
     $("#listado").remove();
+console.log(oXML.getElementsByTagName('no'));
+    if(oXML.getElementsByTagName('no').length > 0){
+        toastr.error("No hay proyectos por un precio mas bajo al seleccionado");
+    }
 
     var jqTabla = $('<table id="listado" border="1" class="table">');
 

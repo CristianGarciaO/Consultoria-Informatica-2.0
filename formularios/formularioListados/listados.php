@@ -3,7 +3,8 @@
 //Recoge las variables seteadas como filtro por el usuario
 header("Content-Type: text/xml");
 
-$tabla=$_REQUEST['tabla'];
+$tabla=$_REQUEST['listadoSelecionado'];
+$precio=$_REQUEST['precioSeleccionado'];
 
 // Abrir conexion con la BD
 $conexion = mysqli_connect("localhost", "root", "", "consultoriabd");
@@ -26,16 +27,26 @@ $respuesta='<?xml version="1.0" encoding="UTF-8"?><listados>';
 
 if($tabla == "proyecto"){
 
-    while($fila=mysqli_fetch_assoc($resultados)){
-        $respuesta.="<proyecto>";
-        $respuesta.="<idProyecto>".$fila['idProyecto']."</idProyecto>";
-        $respuesta.="<nombreProyecto>".$fila['nombreProyecto']."</nombreProyecto>";
-        $respuesta.="<idCliente>".$fila['idCliente']."</idCliente>";
-        $respuesta.="<precio>".$fila['precio']."</precio>";
-        $respuesta.="<fechaIniProyecto>".$fila['fechaIniProyecto']."</fechaIniProyecto>";
-        $respuesta.="<fechaFinProyecto>".$fila['fechaFinProyecto']."</fechaFinProyecto>";
-        $respuesta.="</proyecto>";
+    $sql = "SELECT * FROM ". $tabla." WHERE precio <= ".$precio.";";
+
+    $resultPorPrecio = mysqli_query($conexion, $sql);
+
+    if($resultPorPrecio == false){
+        $respuesta .= "<no></no>";
+    }else{
+        while($fila=mysqli_fetch_assoc($resultPorPrecio)){
+            $respuesta.="<proyecto>";
+            $respuesta.="<idProyecto>".$fila['idProyecto']."</idProyecto>";
+            $respuesta.="<nombreProyecto>".$fila['nombreProyecto']."</nombreProyecto>";
+            $respuesta.="<idCliente>".$fila['idCliente']."</idCliente>";
+            $respuesta.="<precio>".$fila['precio']."</precio>";
+            $respuesta.="<fechaIniProyecto>".$fila['fechaIniProyecto']."</fechaIniProyecto>";
+            $respuesta.="<fechaFinProyecto>".$fila['fechaFinProyecto']."</fechaFinProyecto>";
+            $respuesta.="</proyecto>";
+        }
     }
+
+
 
 }
 

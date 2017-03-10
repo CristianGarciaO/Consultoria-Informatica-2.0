@@ -31,9 +31,11 @@ oDlgGestionCliente = $("#divFormCliente").dialog({
     modal: true,
     buttons: [{
         text: "Guardar",
+        id:"guardarCliente",
         click: gestionGuardardado
     },{
         text: "Modificar",
+        id:"modificarCliente",
         click: gestionModificar
     }, {
         text: "Cancelar",
@@ -291,3 +293,5 @@ function validaFormNuevoCliente() {
 
     }
 }
+$("button#modificarCliente").hide();
+$("button#guardarCliente").show();

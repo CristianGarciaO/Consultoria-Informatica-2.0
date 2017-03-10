@@ -22,12 +22,17 @@ function iniciar(){
 
             $('#dialogoCliente').load("formularios/formularioCliente/cliente.html", function()
                 {
-                    $.getScript("formularios/formularioCliente/cliente.js")
+                    $.getScript("formularios/formularioCliente/cliente.js");
+                    $( "#buscar" ).on( "click", buscarCliente);
                 }
             );
         } else {
             //SE ABRE SI ESTA CERRADO
             $('#divFormCliente').dialog("open");
+            $("#nombreCliente").removeAttr("readonly");
+            $("button#modificarCliente").hide();
+            $("button#guardarCliente").show();
+            comprobarCampos("divFormCliente",false);
         }
 
     });
@@ -186,6 +191,39 @@ if(nombreProyect=="")
     }, "json");
 }
 }
+
+
+    function buscarCliente()
+    {
+
+        var nombreCliente=$("#dniCliente").val().trim();
+        if(nombreCliente=="")
+        {
+            $("#dniCliente").addClass("error");
+            toastr.error("¡Para buscar rellene el campo!");
+        }else {
+            $("#dniCliente").removeClass("error");
+            $.post("formularios/formularioCliente/buscarCliente.php", {datos: nombreCliente}, function (arrayInfoCliente) {
+
+                if(arrayInfoCliente.length==0)
+                {
+                    toastr.error("¡No existe ningun Cliente con ese DNI!");
+                    $("#dniCliente").addClass("error");
+                }
+                else {
+                    $("button#guardarCliente").hide();
+                    $("button#modificarCliente").show();
+                    $("#dniCliente").removeClass("error");
+                    $("#dniCliente").attr("readonly","readonly");
+
+                    $("#nombreCliente").val(arrayInfoCliente[0]).effect( "pulsate",null, 500);
+                    $("#apellidoCliente").val(arrayInfoCliente[1]).effect( "pulsate",null, 500);
+                    $("#telefonoCliente").val(arrayInfoCliente[3]).effect( "pulsate",null, 500);
+                    $("#direccionCliente").val(arrayInfoCliente[4]).effect( "pulsate",null, 500);
+                }
+            }, "json");
+        }
+    }
 
 
     function comprobarCampos(id,select) {

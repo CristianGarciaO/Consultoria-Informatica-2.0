@@ -263,38 +263,15 @@ function validaFormNuevoTrabajador() {
 
     } else {
 
-        // var sMensaje = "";
-        //
-        // if (!oConsultoria.existeCliente(dni)) {
-        //     var contratos = [];  //Array de contratos que pueda tener este cliente
-        //     var oCliente = new Cliente(nombre, dni, apellido, direccion, tlf, contratos);
-        //     sMensaje = oConsultoria.anadeCliente(oCliente);
-        //     toastr.success(sMensaje);
-        //     nuevoCliente();
-        // } else {
-        //     sMensaje = "Imposible añadir. El Cliente que intenta añadir al sistema ya estaba registrado";
-        //     toastr.error(sMensaje);
-        // }
 
-
-        //
-        // var oTrabajador = {
-        //     nombreTrabajador: nombre,
-        //     dniTrabajador : dni,
-        //     apellidoTrabajador: apellido,
-        //     direccionTrabajador: direccion,
-        //     telefonoTrabajador: parseInt(tlf),
-        //     tipoTrabajador: tipo
-        // };
 
          parametrosTrabajador = "nombreTrabajador="+nombre+"&dniTrabajador="+dni+"&apellidoTrabajador="+apellido+
                                    "&direccionTrabajador="+direccion+"&telefonoTrabajador="+parseInt(tlf)+
                                    "&tipoTrabajador="+tipo;
 
-
-
     }
     return parametrosTrabajador;
 }
+
 $("button#modificarTrabajador").hide();
 $("button#guardarTrabajador").show();

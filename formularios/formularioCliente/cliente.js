@@ -90,8 +90,7 @@ function inicializa_xhr() {
 
 function peticionAjax(sURL,sParametros){
 
-    console.log(sParametros);
-    console.log(sURL);
+
 
     // PRIMERO: configuracion de la peticion
     oAjax = inicializa_xhr();

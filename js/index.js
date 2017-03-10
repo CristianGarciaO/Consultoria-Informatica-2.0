@@ -166,34 +166,34 @@ function iniciar(){
     {
 
         var nombreProyect=$("#nombreProyecto").val().trim();
-if(nombreProyect=="")
-{
-    $("#nombreProyecto").addClass("error");
-    toastr.error("¡Para buscar rellene el campo!");
-}else {
-    $("#nombreProyecto").removeClass("error");
-    $.post("formularios/formularioProyecto/buscarProyecto.php", {datos: nombreProyect}, function (arrayInfoProyecto) {
-
-        if(arrayInfoProyecto.length==0)
+        if(nombreProyect=="")
         {
-         toastr.error("¡No existe ningun Proyecto con ese nombre!");
             $("#nombreProyecto").addClass("error");
-        }
-        else {
-            $("button#guardar").hide();
-            $("button#modificar").show();
+            toastr.error("¡Para buscar rellene el campo!");
+        }else {
             $("#nombreProyecto").removeClass("error");
-            $("#nombreProyecto").attr("readonly","readonly");
-            $("#idProyectoMod").val(arrayInfoProyecto[0]);
-            $('#clienteProyecto> option:selected').removeAttr("selected");
-            $('#clienteProyecto> option[value="'+ arrayInfoProyecto[2] +'"]').attr('selected', 'selected').effect( "pulsate",null, 500);
-            $("#precioProyecto").val(arrayInfoProyecto[3]).effect( "pulsate",null, 500);
-            $("#fechaIniProyecto").val(arrayInfoProyecto[4]).effect( "pulsate",null, 500);
-            $("#fechaFinProyecto").val(arrayInfoProyecto[5]).effect( "pulsate",null, 500);
+            $.post("formularios/formularioProyecto/buscarProyecto.php", {datos: nombreProyect}, function (arrayInfoProyecto) {
+
+                if(arrayInfoProyecto.length==0)
+                {
+                    toastr.error("¡No existe ningun Proyecto con ese nombre!");
+                    $("#nombreProyecto").addClass("error");
+                }
+                else {
+                    $("button#guardar").hide();
+                    $("button#modificar").show();
+                    $("#nombreProyecto").removeClass("error");
+                    $("#nombreProyecto").attr("readonly","readonly");
+                    $("#idProyectoMod").val(arrayInfoProyecto[0]);
+                    $('#clienteProyecto> option:selected').removeAttr("selected");
+                    $('#clienteProyecto> option[value="'+ arrayInfoProyecto[2] +'"]').attr('selected', 'selected').effect( "pulsate",null, 500);
+                    $("#precioProyecto").val(arrayInfoProyecto[3]).effect( "pulsate",null, 500);
+                    $("#fechaIniProyecto").val(arrayInfoProyecto[4]).effect( "pulsate",null, 500);
+                    $("#fechaFinProyecto").val(arrayInfoProyecto[5]).effect( "pulsate",null, 500);
+                }
+            }, "json");
         }
-    }, "json");
-}
-}
+    }
 
 
     function buscarCliente()

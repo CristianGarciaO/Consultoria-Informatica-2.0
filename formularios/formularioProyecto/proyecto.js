@@ -78,6 +78,7 @@ function tratarRespuestaAltaProyecto(oArrayRespuesta, sStatus, oXHR){
 }
 
 function tratarErrorAltaProyecto(oArrayRespuesta, sStatus, sError){
+
     $("#mensajes").dialog("open");
     $("#mensajes").dialog("option","title",sStatus);
     $("#pMensajes").text(sError);
@@ -148,7 +149,7 @@ function validarProyecto() {
             //Este campo obtiene el foco
             document.getElementById(idFormulario).fechaIniProyecto.focus();
         }
-        sErrores += "Fecha Inicial del Proyecto incorrecta (formato: 01/01/2017)";
+        sErrores += "Fecha Inicial del Proyecto incorrecta (formato: 2017-12-02)";
 
         //Marcar error
         document.getElementById(idFormulario).fechaIniProyecto.className = "form-control input-md error";

@@ -19,11 +19,13 @@ $("#divFormTarea").dialog({
     show: "pulsate",
     modal: true,
     buttons: [{
+        id:"guardarTarea",
         text: "Guardar",
         click: procesarGuardaTarea
     },{
+        id:"modificarTarea",
         text: "Modificar",
-        click: procesarGuardaTarea
+        click: procesarModificarTarea
     }, {
         text: "Cancelar",
         click: function() {
@@ -32,16 +34,14 @@ $("#divFormTarea").dialog({
     }]
 });
 
-
-
 function procesarGuardaTarea() {
 
     if(validaFormTarea()){
         var sIdProyecto=$("#idProyectoSelect").val();
         var sIdTipoTarea = $("#tiposTareas").val();
         var sIdTrabajador=$("#idTrabajadores").val();
-        var dFechaInicio=$("#fechaIniProyecto").val();
-        var dFechaFin=$("#fechaFinProyecto").val();
+        var dFechaInicio=$("#fechaIniTarea").val();
+        var dFechaFin=$("#fechaFinTarea").val();
         var sEstado=$("input:radio[name=radioEstado]:checked").val();
 
         var oTarea={
@@ -58,28 +58,13 @@ function procesarGuardaTarea() {
         $.ajax({ url : "formularios/formularioTarea/guardarTarea.php",
             data:{datos:jTarea},
             async: true, // Valor por defecto
-            dataType :'html',
+            dataType :'json',
             method: "POST",
             cache: false, // ya por defecto es false para POST
             success: procesarRespuestaGuardarTarea,
             error :procesaErrorGuardarTarea
         });
     }
-
-    function procesarGuardaTarea(){
-
-        //Comprobar si el dialogo esta abierto
-
-
-
-
-        // document.getElementById('idProyectoSelect').addEventListener('change', pideDatosProyecto,false);
-
-
-
-
-    }
-
 }
 
 function procesarRespuestaGuardarTarea(oArrayRespuesta, sStatus, oXHR){
@@ -93,7 +78,6 @@ function procesarRespuestaGuardarTarea(oArrayRespuesta, sStatus, oXHR){
         $("#mensajes").dialog("option","title","OK");
         $("#pMensajes").text(oArrayRespuesta[1]);
     }
-
 }
 
 
@@ -101,22 +85,10 @@ function procesaErrorGuardarTarea(oArrayRespuesta, sStatus, sError){
     $("#mensajes").dialog("open");
     $("#mensajes").dialog("option","title",sStatus);
     $("#pMensajes").text(sError);
-    // $("#pMensajes").text(oArrayRespuesta[1]);
-
 }
-
-
 // **************************************************************************************
 // VALIDACIONES *************************************************************************
 // **************************************************************************************
-
-
-// NUEVO TAREA ******************************************************
-// ***********************************************************************
-
-
-
-
 function validaFormTarea() {
 
 
@@ -159,7 +131,7 @@ alert(bValido);
             //Este campo obtiene el foco
             document.getElementById('formuTarea').fechaFinTarea.focus();
         }
-        sErrores += "Fecha Final de la tarea incorrecta (formato: 01/01/2017)";
+        sErrores += "Fecha Final de la tarea incorrecta (formato: 2017-01-02)";
 
         //Marcar error
         document.getElementById('formuTarea').fechaFinTarea.className = "form-control input-md error";
@@ -180,4 +152,41 @@ alert(bValido);
     return datosCorrectos;
 }
 
+function procesarModificarTarea() {
+    if(validaFormTarea())
+    {
+        var sIdProyecto=$("#idProyectoSelect").val();
+        var sIdTipoTarea = $("#tiposTareas").val();
+        var sIdTrabajador=$("#idTrabajadores").val();
+        var dFechaInicio=$("#fechaIniTarea").val();
+        var dFechaFin=$("#fechaFinTarea").val();
+        var sEstado=$("input:radio[name=radioEstado]:checked").val();
+
+        var oTarea={
+            idProyecto:sIdProyecto,
+            idTipoTarea:sIdTipoTarea,
+            idTrabajador:sIdTrabajador,
+            fechaIniTarea:dFechaInicio,
+            fechaFinTarea:dFechaFin,
+            estado:sEstado
+        };
+
+        var jTarea=JSON.stringify(oTarea);
+        var update=JSON.stringify("update");
+        $.ajax({ url : "formularios/formularioTarea/guardarTarea.php",
+            data:{datos:jTarea,update:update},
+            async: true, // Valor por defecto
+            dataType :'json',
+            method: "POST",
+            cache: false, // ya por defecto es false para POST
+            success: procesarRespuestaGuardarTarea,
+            error :procesaErrorGuardarTarea
+        });
+        
+    }
+}
+
+
+$("button#modificarTarea").hide();
+$("button#guardarTarea").show();
 

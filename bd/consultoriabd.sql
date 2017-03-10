@@ -21,7 +21,9 @@ SET time_zone = "+00:00";
 --
 
 -- --------------------------------------------------------
-
+DROP DATABASE IF EXISTS consultoriabd;
+CREATE DATABASE consultoriabd;
+USE consultoriabd;
 --
 -- Estructura de tabla para la tabla `cliente`
 --

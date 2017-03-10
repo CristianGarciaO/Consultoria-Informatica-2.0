@@ -21,22 +21,39 @@ if ($conn->connect_error) {
 $conn->set_charset("utf8");
 
 
+if(isset($_REQUEST["update"]))
+{
+
+    $sqlBusqueda="SELECT idTarea FROM tarea WHERE tarea.idProyecto=".$oTarea->idProyecto." AND tarea.idTipoTarea=".$oTarea->idTipoTarea."";
+    $idP=$conn->query($sqlBusqueda);
+    $idTarea= $idP->fetch_assoc();
+
+
+    $sql = "UPDATE tarea SET idTrabajador='".$oTarea->idTrabajador."', fechaIniTarea='".$oTarea->fechaIniTarea."', fechaFinTarea='".$oTarea->fechaFinTarea."', estadoTarea='".$oTarea->estado."' WHERE idTarea=".$idTarea["idTarea"];
+    $mensaje='¡Modificación de la Tarea realizada!';
+    $conn->query($sql);
+}
+else{
+
 $sql = "INSERT INTO tarea (idProyecto,idTipoTarea, idTrabajador,fechaIniTarea,fechaFinTarea,estadoTarea) 
-values (".$oTarea->idProyecto.",".$oTarea->idTipoTarea.",'".$oTarea->idTrabajador."',".$oTarea->dFechaInicio.","
-    .$oTarea->dFechaFin.",'".$oTarea->estado."')";
+values (".$oTarea->idProyecto.",".$oTarea->idTipoTarea.",'".$oTarea->idTrabajador."','".$oTarea->fechaIniTarea."','"
+    .$oTarea->fechaFinTarea."','".$oTarea->estado."')";
 
-$resIns = $conn->query($sql);
 
-if($resIns->affected_rows() >0){
-    $resultado =  "Tarea guardada correctamente";
-    $error = FALSE;
-}else{
-    $resultado =  "Problema al guardar Tarea";
-    $error = true;
+    $conn->query($sql);
+
+    if($conn->affected_rows >0){
+        $mensaje =  "Tarea guardada correctamente";
+        $error = false;
+    }else{
+        $mensaje =  "Problema al guardar Tarea";
+        $error = true;
+    }
 }
 
 
-$respuesta = array($error,$resultado);
+$error = false;
+$respuesta = array($error,$mensaje);
 
 echo json_encode($respuesta);
 

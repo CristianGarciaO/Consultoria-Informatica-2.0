@@ -331,6 +331,7 @@ if(nombreProyect=="")
                     $.get('formularios/formularioTarea/cargarComboProyectos.php',null,cargarComboProyectos,'json');
 
                     $.getScript("formularios/formularioTarea/tarea.js");
+                    $( "#buscar" ).on( "click", buscarTareas);
                     var dateFormat = "yy-mm-dd",
                         from = $( "#fechaIniTarea" )
                             .datepicker({
@@ -369,10 +370,62 @@ if(nombreProyect=="")
         } else {
             //SE ABRE SI ESTA CERRADO
             $('#divFormTarea').dialog("open");
+            $("#tiposTareas").removeAttr("disabled");
+            $("#idProyectoSelect").removeAttr("disabled");
+            $("button#modificarTarea").hide();
+            $("button#guardarTarea").show();
+            $("input#radioEstado-0").prop("checked", true);
+            comprobarCampos("divFormTarea");
         }
 
     });
+    function buscarTareas()
+    {
 
+        var bidProyectoSelect= $('#idProyectoSelect> option:selected').val();
+        var btiposTareas= $('#tiposTareas> option:selected').val();
+       var oDatos={
+           idPro:bidProyectoSelect,
+           tipoTarea:btiposTareas
+       };
+        var jdatos=JSON.stringify(oDatos);
+
+
+            $.post("formularios/formularioTarea/buscarTarea.php", {datos: jdatos}, function (arrayInfoTareaS) {
+
+                if(arrayInfoTareaS.length==0)
+                {
+                    toastr.error("¡No existe ninguna Tarea con esos datos!");
+                    $("#idProyectoSelect").addClass("error");
+                    $("#tiposTareas").addClass("error");
+                }
+                else {
+                    $("button#guardarTarea").hide();
+                    $("button#modificarTarea").show();
+                    $("#idProyectoSelect").removeClass("error");
+                    $("#tiposTareas").removeClass("error");
+                    $("#idProyectoSelect").attr("disabled","disabled");
+                    $("#tiposTareas").attr("disabled","disabled");
+
+                    $('#idTrabajadores> option:selected').removeAttr("selected");
+                    $('#idTrabajadores> option[value="'+ arrayInfoTareaS[3] +'"]').attr('selected', 'selected').effect( "pulsate",null, 500);
+
+                    $("#fechaIniTarea").val(arrayInfoTareaS[4]).effect( "pulsate",null, 500);
+                    $("#fechaFinTarea").val(arrayInfoTareaS[5]).effect( "pulsate",null, 500);
+                    var array = $("input[name=radioEstado]");
+                    for (var i=0;i<array.length;i++)
+                    {
+                        if(array[i].value=arrayInfoTareaS[6])
+                        {
+                            $("input[name=radioEstado]:checked").removeAttr("checked");
+                            var idC = array[i].getAttribute("id");
+                            $("input#"+idC).prop("checked", true);
+                        }
+                    }
+                }
+            }, "json");
+
+    }
 
     function cargaComboTrabajadores(oArrayTrabajadores,sStatus,oXHR) {
 

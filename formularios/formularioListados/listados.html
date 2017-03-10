@@ -10,7 +10,7 @@
 
 <div class="container" id="divFormMenuListados">
 
-    <form class="form-inline" id="formuMenuListados">
+    <form class="form-inline" name="formuMenuListados" id="formuMenuListados">
         <fieldset>
 
             <select name="listadoSelecionado" id="listadoSelecionado">
@@ -24,6 +24,12 @@
 
             </select>
 
+            <p>
+                <label for="amount">Rango de Precio de Proyecto:</label>
+                <input type="text" name="precioSeleccionado" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+            </p>
+
+            <div id="slider"></div>
             <!--<div class="form-group col-md-3">-->
                 <!--<input type="button" value="Proyectos" class="form-control "/>-->
             <!--</div>-->

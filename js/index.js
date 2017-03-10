@@ -16,8 +16,6 @@ function iniciar(){
 
     $('#activarFormuCliente').click(function(){
 
-        //ocultarFormularios();
-        // SE VERIFICA SI EL FORMU ESTABA ANTES
         if( $('#divFormCliente').size() == 0 ){
 
             $('#dialogoCliente').load("formularios/formularioCliente/cliente.html", function()

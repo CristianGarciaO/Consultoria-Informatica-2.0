@@ -50,7 +50,7 @@ var oAjaxListado = null;
 function procesoListado(){
 
     var seleccion= $('[name=formuMenuListados]').serialize();
-    console.log(seleccion);
+
     var sParametroGET = seleccion;
 
     var sURL = encodeURI("formularios/formularioListados/listados.php?");
@@ -101,7 +101,7 @@ function procesaXML(oXML){
 
     //borrar tabla si habia
     $("#listado").remove();
-console.log(oXML.getElementsByTagName('no'));
+
     if(oXML.getElementsByTagName('no').length > 0){
         toastr.error("No hay proyectos por un precio mas bajo al seleccionado");
     }
